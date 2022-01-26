@@ -77,7 +77,7 @@
 </script>
 {% endif %}
 <script>
-
+    
 
     const chatSocket = new WebSocket(
         'wss://'
@@ -107,4 +107,11 @@
 
 </script>
   <script src="{% static 'js/jquery.js' %}"></script>
+<script>
+  $('input[name="answer"]').keypress(function(e) {
+        if(e.which == 13) {
+            submit()
+        }
+    });
+</script>
     {% endblock %}
