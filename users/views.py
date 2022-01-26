@@ -461,9 +461,10 @@ def attack(request):
         victimpoints.save()
     elif attackpoints <= victimpoints.defensepoints:
         status = "lose"
-        points.flagpoints -= round((points.flagpoints)/4)
+        
         victimpoints.flagpoints += round((points.flagpoints)/4)
         lostpoints = round((points.flagpoints)/4)
+        points.flagpoints -= round((points.flagpoints)/4)
         points.save()
         victimpoints.save()
         victimtroops.soldiers = 0
