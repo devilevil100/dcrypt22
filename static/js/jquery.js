@@ -73,13 +73,13 @@ function createAlert(title, summary, details, severity, dismissible, autoDismiss
       msg.addClass("flipOutX");
       setTimeout(function(){
         msg.remove();
-
+        if(reload){
+    window.location.reload()
+  }
       },5000);
     }, 5000);
   }
-  if(reload){
-    window.location.reload()
-  }
+  
 }
 
 function submit(){
