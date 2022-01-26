@@ -129,7 +129,7 @@ USE_TZ = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
-
+CSRF_TRUSTED_ORIGINS = ['https://dcrypt22.herokuapp.com']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ASGI_APPLICATION = 'dcrypt22.routing.application'
 CHANNEL_LAYERS = {
