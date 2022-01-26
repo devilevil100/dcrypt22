@@ -164,19 +164,19 @@ def dashboard(request):
         email = request.session.get('email')
         if User.objects.filter(p1email=email):
             q= User.objects.get(p1email=email)
-            q.teamname = teamname
+            q.teamname = teamname.replace(" ","")
             request.session['team'] =teamname
             q.password = make_password(password)
             q.save()
         elif User.objects.filter(p2email=email):
             q= User.objects.get(p2email=email)
-            q.teamname = teamname
+            q.teamname = teamname.replace(" ","")
             request.session['team'] =teamname
             q.password = make_password(password)
             q.save()
         elif User.objects.filter(p3email=email):
             q= User.objects.get(p3email=email)
-            q.teamname = teamname
+            q.teamname = teamname.replace(" ","")
             request.session['team'] =teamname
             q.password = make_password(password)
             q.save()
