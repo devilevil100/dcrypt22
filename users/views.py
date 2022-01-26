@@ -16,31 +16,7 @@ from asgiref.sync import async_to_sync
 N = 7
 
 
-sa = gspread.service_account(filename='creds/credentials.json')
-sh = sa.open("Registration for ncrypt")
 
-wks = sh.worksheet("Sheet1")
-details = wks.col_values(9)
-details.pop(0)
-res = []
-[res.append(x) for x in details if x not in res]
-res.pop(0)
-
-counter = 0
-for det in res:
-
-    p1name = det.split("\n")[1].split("|")[0].split("-")[1]
-    p1email = det.split("\n")[1].split("|")[1].split("-")[1]
-    p2name = det.split("\n")[3].split("|")[0].split("-")[1]
-    p2email = det.split("\n")[3].split("|")[1].split("-")[1]
-    p3name = det.split("\n")[5].split("|")[0].split("-")[1]
-    p3email = det.split("\n")[5].split("|")[1].split("-")[1]
-
-    if not User.objects.filter(p1name=p1name):
-
-        q = User(teamname=f"team{counter}", p1name=p1name, p1email=p1email.replace(" ", ""),p2name=p2name, p2email=p2email.replace(" ", ""),p3name=p3name, p3email=p3email.replace(" ", ""), password=make_password("abcdefghi"))
-        q.save()
-        counter += 1
 def hourlyfp():
     while True:
         hourlyfp = HourlyFp.objects.all()
