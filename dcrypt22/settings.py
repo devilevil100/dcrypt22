@@ -86,9 +86,21 @@ WSGI_APPLICATION = 'dcrypt22.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+
+        'ENGINE': 'django.db.backends.postgresql',
+
+        'NAME': ‘dqi8lav20gir9’,
+
+        'USER': 'sjnlngnlycgado',
+
+        'PASSWORD': '5432',
+
+        'HOST': 'ec2-54-83-152-251.compute-1.amazonaws.com',
+
+        'PORT': '28410eccf117c7c613e8ecd2324f82ffcd67ff9a11c1651cd718853615f7a71a',
+
     }
+
 }
 
 
