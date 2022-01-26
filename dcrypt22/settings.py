@@ -93,11 +93,11 @@ DATABASES = {
 
         'USER': 'sjnlngnlycgado',
 
-        'PASSWORD': '5432',
+        'PORT': '5432',
 
         'HOST': 'ec2-54-83-152-251.compute-1.amazonaws.com',
 
-        'PORT': '28410eccf117c7c613e8ecd2324f82ffcd67ff9a11c1651cd718853615f7a71a',
+        'PASSWORD': '28410eccf117c7c613e8ecd2324f82ffcd67ff9a11c1651cd718853615f7a71a',
 
     }
 
