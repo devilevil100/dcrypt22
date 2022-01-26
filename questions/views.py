@@ -45,7 +45,7 @@ def answer(request):
         return redirect('dashboard:login')
     if 'team' in request.session.get('team'):
         return redirect('dashboard:dashboard')
-    ans = request.POST.get('ans')
+    ans = request.POST.get('ans').replace(" ","").lower()
     name= request.session.get('name')[0]
     q = User.objects.get(p1name=name)
     current = CurrentQues.objects.get(team=q)
