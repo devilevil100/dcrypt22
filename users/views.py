@@ -350,8 +350,11 @@ def buytroops(request):
     if shield >1:
         return HttpResponse('hack')
     if shield > 0:
-        if cool.shield > datetime.datetime.now(datetime.timezone.utc):
-            return HttpResponse('hack')
+        if cool.shield:
+            if cool.shield > datetime.datetime.now(datetime.timezone.utc):
+                return HttpResponse('hack')
+            else:
+                cool.shield = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=1)
         else:
             cool.shield = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=1)
         cool.save()
