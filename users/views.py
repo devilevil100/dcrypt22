@@ -90,7 +90,6 @@ def index(request):
                 else:
                     request.session['name'] = [q.p1name]
                 request.session['email'] =email
-                print(p1name)
                 return redirect("dashboard:dashboard")
             else:
                 return render(request,"login.html", {"error": "Password is incorrect "})
