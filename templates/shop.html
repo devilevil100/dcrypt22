@@ -1,0 +1,825 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+<div class="modal fade " data-backdrop="static" data-keyboard="false" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="display: block;padding: 0;">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content" style="
+ overflow-x: hidden;
+">
+
+       <div class="row no-gutters">
+
+         <div class="col-md-12 d-flex" id="registerform">
+           <div class="modal-body p-5 img d-flex align-items-center color-2">
+             <div class="text w-100 ">
+               <h3 class="mb-4" style="
+ color: white;
+ font-weight: 200;
+ text-align: center;
+ font-size: 2em;
+">Change Credentials</h3>
+<p style="color:red">{{error}} </p>
+               <form action="" method="post" id="signup-form" class="signup-form">
+                 {% csrf_token %}
+                 <div id="changeform">
+                 <div id="form1" class="nextform currentform">
+                 <div class="form-group mb-3">
+
+                   <input type="text" required class="form-control" name="teamname" placeholder=" Team Name" >
+                 </div>
+                 <div class="form-group mb-3">
+
+                   <input type="password" required class="form-control" name="password" placeholder="New Password" >
+                 </div>
+                   <button type="submit" class="btn btn-primary">Submit</button>
+               </div>
+               </div>
+               </form>
+
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="modal fade "  id="troopinfo" tabindex="-1" role="dialog" aria-labelledby="troopinfo" aria-hidden="true" style="">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content" style="
+  overflow-x: hidden;
+ ">
+
+        <div class="row no-gutters">
+
+          <div class="col-md-12 d-flex" id="registerform">
+            <div class="modal-body p-5 img d-flex align-items-center color-2">
+
+              <div class="text w-100 ">
+                <h3 class="mb-4" style="
+  color: white;
+  font-weight: 200;
+  text-align: center;
+  font-size: 2em;
+ ">Troop Info</h3>
+ <p style="color:red">{{error}} </p>
+                <div class="troopcontent">
+
+                      <div class="row align-items-center ">
+                        <div  class="col-lg-6 col-md-12" id="troopcontentimg">
+
+                        </div>
+                        <div  class="col-lg-6 col-md-12" id="troopcontentinfo">
+
+                        </div>
+                      </div>
+
+
+                      </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+  <div class="container" style="padding-top: 2em; " id="shopp">
+    {% if hp == "no" %}
+    <h2 style="color:white; margin-bottom: 1em;"> Shop </h2>
+    {% else %}
+    <h2 style="color:white; margin-bottom: 1em;"> <img src="{% static 'images/discount.svg' %}" style="max-width: 1.25em; padding-bottom: 0.1em;">  Shop </h2>
+  {% endif %}
+
+     </div>
+     <div class="container">
+         <div class="row align-items-center ">
+           <div  class="col-lg-6 col-md-12 pointtable" id="baracks" style="    padding-right: 2.75em;">
+             <h2 style="color:white;"> Troops </h2>
+               <div class="row align-items-center pointhed baracks" >
+                 <div class="col-lg-3  col-md-6  ">
+                   <div class="shoptroop" id="soldierlore">
+                     <h3> Soldiers </h3>
+                     <img src="{% static 'images/soldier.svg' %}">
+                     <div class="num-block skin-2">
+                      <div class="num-in">
+                        <span class="minus dis"></span>
+                        <input type="text" name="soldiers" class="in-num" value="0" readonly="">
+                        <span class="plus"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3  col-md-6  ">
+                  <div class="shoptroop" id="bomberlore">
+                    <h3> Bombers </h3>
+                    <img src="{% static 'images/bomber.svg' %}">
+                    <div class="num-block skin-2">
+                     <div class="num-in">
+                       <span class="minus dis"></span>
+                       <input type="text" name="bombers" class="in-num" value="0" readonly="">
+                       <span class="plus"></span>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+               <div class="col-lg-3  col-md-6  ">
+                 <div class="shoptroop" id="tanklore">
+                   <h3> Tanks </h3>
+                   <img src="{% static 'images/tank.svg' %}">
+                   <div class="num-block skin-2">
+                    <div class="num-in">
+                      <span class="minus dis"></span>
+                      <input type="text" name="tanks" class="in-num" value="0" readonly="">
+                      <span class="plus"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3  col-md-6  ">
+                <div class="shoptroop" id="aaglore">
+                  <h3> A.A.G </h3>
+                  <img src="{% static 'images/aag.svg' %}">
+                  <div class="num-block skin-2">
+                   <div class="num-in">
+                     <span class="minus dis"></span>
+                     <input type="text" name="aag" class="in-num" value="0" readonly="">
+                     <span class="plus"></span>
+                   </div>
+                 </div>
+               </div>
+             </div>
+               </div><br>
+
+               <h2 style="color:white;"> Power Up </h2>
+               <div id="powerup">
+                 <div class="row align-items-center pointhed baracks" style="padding-right: 1em;">
+                   <div class="col-lg-12  col-md-12  powerup">
+                     <h3> Multiplier <span style="font-weight: 200;  ">- Total attack * 1.5</span> </h3>
+                     <div class="num-block skin-2" style="display: inline; margin: 0;width: fit-content;float: right;">
+                      <div class="num-in">
+                        <span class="minus dis"></span>
+                        <input type="text" name="multiplier" class="in-num" value="0" readonly="">
+                        <span class="plus"></span>
+                      </div>
+                    </div>
+                    </div>
+                    {% if shield == "yes" %}
+                    <div class="col-lg-12  col-md-12  powerup">
+                      <h3> Shield <span style="font-weight: 200;  ">- Immunity against attacks</span> </h3>
+                      <div class="num-block skin-2" style="display: inline; margin: 0;width: fit-content;float: right;">
+                       <div class="num-in">
+                         <span class="minus dis"></span>
+                         <input type="text" name="shield" class="in-num" value="0" readonly="">
+                         <span class="plus"></span>
+                       </div>
+                     </div>
+                     </div>
+                     {% else %}
+                     <input type="hidden" name="shield" class="in-num" value="0" readonly="">
+                     {% endif %}
+                     <div class="col-lg-12  col-md-12  powerup">
+                       <h3> Half Price <span style="font-weight: 200;   ">-  50% discount in shop</span> </h3>
+                       <div class="num-block skin-2" style="display: inline; margin: 0;width: fit-content;float: right;">
+                        <div class="num-in">
+                          <span class="minus dis"></span>
+                          <input type="text" name="hp" class="in-num" value="0" readonly="">
+                          <span class="plus"></span>
+                        </div>
+                      </div>
+                      </div>
+                      <div class="col-lg-12  col-md-12  powerup">
+                        <h3> Poison  <span style="font-weight: 200; float:right padding-left: 0.01em; "> - Stop Hourly FP</span> </h3>
+                        <div class="num-block skin-2" style="display: inline; margin: 0;width: fit-content;float: right;">
+                         <div class="num-in">
+                           <span class="minus dis"></span>
+                           <input type="text" name="poison" class="in-num" value="0" readonly="">
+                           <span class="plus"></span>
+                         </div>
+                       </div>
+                       </div>
+                       {% if bonusfp == "yes" %}
+                       <div class="col-lg-12  col-md-12  powerup">
+                         <h3> Bonus FP <span style="font-weight: 200; float:right;padding-left: 0.1em;  "> - Increase Hourly FP</span> </h3>
+                         <div class="num-block skin-2" style="display: inline; margin: 0;width: fit-content;float: right;">
+                          <div class="num-in">
+                            <span class="minus dis"></span>
+                            <input type="text" name="bonusfp" class="in-num" value="0" readonly="">
+                            <span class="plus"></span>
+                          </div>
+                        </div>
+                        </div>
+                        {% else %}
+                        <input type="hidden" name="bonusfp" class="in-num" value="0" readonly="">
+                        {% endif %}
+
+
+                 </div>
+</div>
+
+           </div>
+           <div  class="col-lg-5 col-md-12 pointtable" id="notifs" style="    padding-right: 2.75em;">
+             <h2 style="color:white; text-align: center;"> Points  </h2>
+             <div  class="col-lg-12 col-md-12 pointtable" id="ppoints" style="margin: 0;">
+                 <div class="row align-items-center pointhed "style="
+                 margin-bottom: 3em;
+             margin-top: 1em;
+">
+                   <div class="col-6 ">
+                     <h3> Battle Points </h3>
+                     <h2> {{battlep}} </h2>
+                   </div><div class="d-flex" style="height: 50px; background: white; width: 1px;">
+         <div class="vr"></div>
+       </div>
+                   <div class="col-5">
+                     <h3> Cost</h3>
+                     <h2 id="cost"> 0 </h2>
+                   </div>
+
+                 </div>
+
+                 <button onclick="buytroops()" class="btn buybtn btn-primary">Buy</button>
+             </div>
+
+
+           </div>
+           </div>
+         </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" charset="utf-8"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+             <script src="{% static 'js/jquery.js' %}"></script>
+  {% if team == "NA" %}
+  <script type="text/javascript">
+     $('#exampleModalCenter').modal('toggle');
+  </script>
+  {% else %}
+  <script type="text/javascript">
+     $('#exampleModalCenter').hide();
+  </script>
+  {% endif %}
+  {% if boughtitems != "no" %}
+  <script type="text/javascript">
+    createAlert('','Battle Points Spent!','Spent {{boughtitems |safe }} BP in the shop','success',true,true,'shopp');
+  </script>
+  {% endif %}
+  <script type="text/javascript">
+      var totalbp = {{battlep | safe}}
+  $("#notifs").height($("#baracks").height())
+  $(window).on('resize', function(){
+      $("#notifs").height($("#baracks").height())
+  });
+  $("#troopinfo").modal('hide')
+  $("#soldierlore").click(function(){
+    $("#troopinfo").modal('show')
+    $("#troopcontentimg").empty()
+    $("#troopcontentinfo").empty()
+    $("#troopcontentimg").append('<img src="{% static 'images/soldier.svg' %}">')
+    $("#troopcontentinfo").append('<h2> Soldier </h2>')
+    $("#troopcontentinfo").append('<h6> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  </h6>')
+    $("#troopcontentinfo").append('<h3> Attack - 100  </h3>')
+    $("#troopcontentinfo").append('<h3> Defense - 100 </h3>')
+    {% if hp == "no" %}
+    $("#troopcontentinfo").append('<h3> Cost - 100 BP </h3>')
+    {% else %}
+    $("#troopcontentinfo").append('<h3> Cost - 50 BP </h3>')
+    {% endif %}
+
+  })
+  $("#bomberlore").click(function(){
+    $("#troopinfo").modal('show')
+    $("#troopcontentimg").empty()
+    $("#troopcontentinfo").empty()
+    $("#troopcontentimg").append('<img src="{% static 'images/bomber.svg' %}">')
+    $("#troopcontentinfo").append('<h2> Bomber </h2>')
+    $("#troopcontentinfo").append('<h6> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  </h6>')
+    $("#troopcontentinfo").append('<h3> Attack - 300  </h3>')
+    $("#troopcontentinfo").append('<h3> Defense - 0 </h3>')
+    {% if hp == "no" %}
+    $("#troopcontentinfo").append('<h3> Cost - 250 BP </h3>')
+    {% else %}
+    $("#troopcontentinfo").append('<h3> Cost - 125 BP </h3>')
+    {% endif %}
+  })
+  $("#tanklore").click(function(){
+    $("#troopinfo").modal('show')
+    $("#troopcontentimg").empty()
+    $("#troopcontentinfo").empty()
+    $("#troopcontentimg").append('<img src="{% static 'images/tank.svg' %}">')
+    $("#troopcontentinfo").append('<h2> Tank </h2>')
+    $("#troopcontentinfo").append('<h6> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  </h6>')
+    $("#troopcontentinfo").append('<h3> Attack - 500  </h3>')
+    $("#troopcontentinfo").append('<h3> Defense - 350 </h3>')
+    {% if hp == "no" %}
+    $("#troopcontentinfo").append('<h3> Cost - 400 BP </h3>')
+    {% else %}
+    $("#troopcontentinfo").append('<h3> Cost - 200 BP </h3>')
+    {% endif %}
+  })
+  $("#aaglore").click(function(){
+    $("#troopinfo").modal('show')
+    $("#troopcontentimg").empty()
+    $("#troopcontentinfo").empty()
+    $("#troopcontentimg").append('<img src="{% static 'images/aag.svg' %}">')
+    $("#troopcontentinfo").append('<h2> A.A.G </h2>')
+    $("#troopcontentinfo").append('<h6> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  </h6>')
+    $("#troopcontentinfo").append('<h3> Attack - 0  </h3>')
+    $("#troopcontentinfo").append('<h3> Defense - 300 </h3>')
+    {% if hp == "no" %}
+    $("#troopcontentinfo").append('<h3> Cost - 250 BP </h3>')
+    {% else %}
+    $("#troopcontentinfo").append('<h3> Cost - 125 BP </h3>')
+    {% endif %}
+
+  })
+  </script>
+  <script>
+
+
+      const chatSocket = new WebSocket(
+          'ws://'
+          + window.location.host
+          + '/ws/chat/'
+          + '{{room | safe}}'
+          + '/'
+      );
+
+      chatSocket.onmessage = function(e) {
+          const data = JSON.parse(e.data);
+          console.log(data)
+          if(data.status){
+            if (data.status == "win"){
+                createAlert('','Congo Master!',data.message,'success',true,true,'shopp');
+            }
+            else if (data.status == "lose"){
+                createAlert('','Master!',data.message,'danger',true,true,'shopp');
+            }
+          }
+
+      };
+
+      chatSocket.onclose = function(e) {
+          console.error('Chat socket closed unexpectedly');
+      };
+
+  </script>
+  {% if hp ==  "no" %}
+  <script type="text/javascript">
+
+  /////////////////// product +/-
+  $(document).ready(function() {
+    $('.num-in span').click(function () {
+
+        var $input = $(this).parents('.num-block').find('input.in-num');
+        var troopname = $input.attr('name')
+
+      if($(this).hasClass('minus')) {
+        var count = parseFloat($input.val()) - 1;
+        count = count < 0 ? 0 : count;
+        if (count < 2) {
+          $(this).addClass('dis');
+        }
+        else {
+          $(this).removeClass('dis');
+        }
+        $input.val(count);
+        if (troopname === "soldiers"){
+          if($('.soldier').length > 0){
+          if (totalbp+100 <= {{battlep |safe}}) {
+            totalbp += 100
+          }
+          $("#cost").html({{battlep |safe}} - totalbp)
+
+          $('.soldier').last().remove()}
+        }
+        else if (troopname === "bombers"){
+            if($('.bomber').length > 0){
+          if (totalbp+250 <= {{battlep |safe}}) {
+            totalbp += 250
+          }
+          $("#cost").html({{battlep |safe}} - totalbp)
+
+          $('.bomber')[0].remove()}
+        }
+        else if (troopname === "tanks"){
+            if($('.tank').length > 0){
+          if (totalbp+400 <= {{battlep |safe}}) {
+            totalbp += 400
+          }
+          $("#cost").html({{battlep |safe}} - totalbp)
+
+          $('.tank')[0].remove()}
+        }
+        else if (troopname === "aag"){
+            if($('.aag').length > 0){
+          if (totalbp+250 <= {{battlep |safe}}) {
+            totalbp += 250
+          }
+          $("#cost").html({{battlep |safe}} - totalbp)
+
+          $('.aag')[0].remove()}
+        }
+        else if (troopname === "multiplier"){
+          if($('.multiplier').length > 0){
+          if (totalbp+2500 <= {{battlep |safe}}) {
+            totalbp += 2500
+          }
+          $("#cost").html({{battlep |safe}} - totalbp)
+
+          $('.multiplier').last().remove()}
+        }
+        else if (troopname === "shield"){
+          if($('.shield').length > 0){
+          if (totalbp+2500 <= {{battlep |safe}}) {
+            totalbp += 2500
+          }
+          $("#cost").html({{battlep |safe}} - totalbp)
+
+          $('.shield').last().remove()}
+        }
+        else if (troopname === "hp"){
+          if($('.hp').length > 0){
+          if (totalbp+2500 <= {{battlep |safe}}) {
+            totalbp += 2500
+          }
+          $("#cost").html({{battlep |safe}} - totalbp)
+
+          $('.hp').last().remove()}
+        }
+        else if (troopname === "poison"){
+          if($('.poison').length > 0){
+          if (totalbp+3000 <= {{battlep |safe}}) {
+            totalbp += 3000
+          }
+          $("#cost").html({{battlep |safe}} - totalbp)
+
+          $('.poison').last().remove()}
+        }
+        else if (troopname === "bonusfp"){
+          if($('.bonusfp').length > 0){
+          if (totalbp+3000 <= {{battlep |safe}}) {
+            totalbp += 3000
+          }
+          $("#cost").html({{battlep |safe}} - totalbp)
+
+          $('.bonusfp').last().remove()}
+        }
+      }
+      else {
+        var count = parseFloat($input.val()) + 1
+
+        if (count > 0) {
+          $(this).parents('.num-block').find(('.minus')).removeClass('dis');
+        }
+        if (troopname === "soldiers"){
+          totalbp -=  100
+          if(totalbp < 0){
+            totalbp += 100
+            return false;
+          }
+          $input.val(count)
+          $("#cost").html({{battlep |safe}} - totalbp)
+
+          $("#ppoints").append('<img class="soldier" src="{% static 'images/soldier.svg' %}" style="max-width: 10%; display:none">')
+
+        }
+        if (troopname === "bombers"){
+          totalbp -=  250
+          if(totalbp < 0){
+            totalbp += 250
+            return false;
+          }
+          $input.val(count)
+          $("#cost").html({{battlep |safe}} - totalbp)
+          $("#ppoints").append('<img class="bomber" src="{% static 'images/bomber.svg' %}" style="max-width: 10%; display:none">')
+
+        }
+        if (troopname === "tanks"){
+          totalbp -= 400
+          if(totalbp < 0){
+            totalbp += 400
+            return false;
+          }
+          $input.val(count)
+          $("#cost").html({{battlep |safe}} - totalbp)
+          $("#ppoints").append('<img class="tank" src="{% static 'images/tank.svg' %}" style="max-width: 10%; display:none">')
+
+        }
+        if (troopname === "aag"){
+          totalbp -=   250
+          if(totalbp < 0){
+            totalbp += 250
+            return false;
+          }
+          $input.val(count)
+          $("#cost").html({{battlep |safe}} - totalbp)
+          $("#ppoints").append('<img class="aag" src="{% static 'images/aag.svg' %}" style="max-width: 10%; display:none">')
+
+        }
+        if (troopname === "multiplier"){
+          totalbp -=  2500
+          if(totalbp < 0){
+            totalbp += 2500
+            return false;
+          }
+          $input.val(count)
+          $("#cost").html({{battlep |safe}} - totalbp)
+
+          $("#ppoints").append('<div class="multiplier"  style="max-width: 10%; display:none">')
+
+        }
+        if (troopname === "shield"){
+          if($('.shield').length >= 1){
+            return false;
+          }
+          totalbp -=  2500
+          if(totalbp < 0){
+            totalbp += 2500
+            return false;
+          }
+          $input.val(count)
+          $("#cost").html({{battlep |safe}} - totalbp)
+
+          $("#ppoints").append('<div class="shield"  style="max-width: 10%; display:none">')
+
+        }
+        if (troopname === "hp"){
+          totalbp -=  2500
+          if(totalbp < 0){
+            totalbp += 2500
+            return false;
+          }
+          $input.val(count)
+          $("#cost").html({{battlep |safe}} - totalbp)
+
+          $("#ppoints").append('<div class="hp"  style="max-width: 10%; display:none">')
+
+        }
+        if (troopname === "poison"){
+          totalbp -=  3000
+          if(totalbp < 0){
+            totalbp += 3000
+            return false;
+          }
+          $input.val(count)
+          $("#cost").html({{battlep |safe}} - totalbp)
+
+          $("#ppoints").append('<div class="poison"  style="max-width: 10%; display:none">')
+
+        }
+        if (troopname === "bonusfp"){
+          totalbp -=  3000
+          if(totalbp < 0){
+            totalbp += 3000
+            return false;
+          }
+          $input.val(count)
+          $("#cost").html({{battlep |safe}} - totalbp)
+
+          $("#ppoints").append('<div class="bonusfp"  style="max-width: 10%; display:none">')
+
+        }
+      }
+
+      $input.change();
+      return false;
+    });
+
+  });
+
+  // product +/-
+  </script>
+{% else %}
+<script type="text/javascript">
+
+/////////////////// product +/-
+$(document).ready(function() {
+  $('.num-in span').click(function () {
+
+      var $input = $(this).parents('.num-block').find('input.in-num');
+      var troopname = $input.attr('name')
+
+    if($(this).hasClass('minus')) {
+      var count = parseFloat($input.val()) - 1;
+      count = count < 0 ? 0 : count;
+      if (count < 2) {
+        $(this).addClass('dis');
+      }
+      else {
+        $(this).removeClass('dis');
+      }
+      $input.val(count);
+      if (troopname === "soldiers"){
+        if($('.soldier').length > 0){
+        if (totalbp+50 <= {{battlep |safe}}) {
+          totalbp += 50
+        }
+        $("#cost").html({{battlep |safe}} - totalbp)
+
+        $('.soldier').last().remove()}
+      }
+      else if (troopname === "bombers"){
+          if($('.bomber').length > 0){
+        if (totalbp+125 <= {{battlep |safe}}) {
+          totalbp += 125
+        }
+        $("#cost").html({{battlep |safe}} - totalbp)
+
+        $('.bomber')[0].remove()}
+      }
+      else if (troopname === "tanks"){
+          if($('.tank').length > 0){
+        if (totalbp+200 <= {{battlep |safe}}) {
+          totalbp += 200
+        }
+        $("#cost").html({{battlep |safe}} - totalbp)
+
+        $('.tank')[0].remove()}
+      }
+      else if (troopname === "aag"){
+          if($('.aag').length > 0){
+        if (totalbp+125 <= {{battlep |safe}}) {
+          totalbp += 125
+        }
+        $("#cost").html({{battlep |safe}} - totalbp)
+
+        $('.aag')[0].remove()}
+      }
+      else if (troopname === "multiplier"){
+        if($('.multiplier').length > 0){
+        if (totalbp+2500 <= {{battlep |safe}}) {
+          totalbp += 2500
+        }
+        $("#cost").html({{battlep |safe}} - totalbp)
+
+        $('.multiplier').last().remove()}
+      }
+      else if (troopname === "shield"){
+        if($('.shield').length > 0){
+        if (totalbp+2500 <= {{battlep |safe}}) {
+          totalbp += 2500
+        }
+        $("#cost").html({{battlep |safe}} - totalbp)
+
+        $('.shield').last().remove()}
+      }
+      else if (troopname === "hp"){
+        if($('.hp').length > 0){
+        if (totalbp+2500 <= {{battlep |safe}}) {
+          totalbp += 2500
+        }
+        $("#cost").html({{battlep |safe}} - totalbp)
+
+        $('.hp').last().remove()}
+      }
+      else if (troopname === "poison"){
+        if($('.poison').length > 0){
+        if (totalbp+3000 <= {{battlep |safe}}) {
+          totalbp += 3000
+        }
+        $("#cost").html({{battlep |safe}} - totalbp)
+
+        $('.poison').last().remove()}
+      }
+      else if (troopname === "bonusfp"){
+        if($('.bonusfp').length > 0){
+        if (totalbp+3000 <= {{battlep |safe}}) {
+          totalbp += 3000
+        }
+        $("#cost").html({{battlep |safe}} - totalbp)
+
+        $('.bonusfp').last().remove()}
+      }
+    }
+    else {
+      var count = parseFloat($input.val()) + 1
+
+      if (count > 0) {
+        $(this).parents('.num-block').find(('.minus')).removeClass('dis');
+      }
+      if (troopname === "soldiers"){
+        totalbp -=  50
+        if(totalbp < 0){
+          totalbp += 50
+          return false;
+        }
+        $input.val(count)
+        $("#cost").html({{battlep |safe}} - totalbp)
+
+        $("#ppoints").append('<img class="soldier" src="{% static 'images/soldier.svg' %}" style="max-width: 10%; display:none">')
+
+      }
+      if (troopname === "bombers"){
+        totalbp -=  125
+        if(totalbp < 0){
+          totalbp += 125
+          return false;
+        }
+        $input.val(count)
+        $("#cost").html({{battlep |safe}} - totalbp)
+        $("#ppoints").append('<img class="bomber" src="{% static 'images/bomber.svg' %}" style="max-width: 10%; display:none">')
+
+      }
+      if (troopname === "tanks"){
+        totalbp -= 200
+        if(totalbp < 0){
+          totalbp += 200
+          return false;
+        }
+        $input.val(count)
+        $("#cost").html({{battlep |safe}} - totalbp)
+        $("#ppoints").append('<img class="tank" src="{% static 'images/tank.svg' %}" style="max-width: 10%; display:none">')
+
+      }
+      if (troopname === "aag"){
+        totalbp -=   125
+        if(totalbp < 0){
+          totalbp += 125
+          return false;
+        }
+        $input.val(count)
+        $("#cost").html({{battlep |safe}} - totalbp)
+        $("#ppoints").append('<img class="aag" src="{% static 'images/aag.svg' %}" style="max-width: 10%; display:none">')
+
+      }
+      if (troopname === "multiplier"){
+        totalbp -=  2500
+        if(totalbp < 0){
+          totalbp += 2500
+          return false;
+        }
+        $input.val(count)
+        $("#cost").html({{battlep |safe}} - totalbp)
+
+        $("#ppoints").append('<div class="multiplier"  style="max-width: 10%; display:none">')
+
+      }
+      if (troopname === "shield"){
+        if($('.shield').length >= 1){
+          return false;
+        }
+        totalbp -=  2500
+        if(totalbp < 0){
+          totalbp += 2500
+          return false;
+        }
+        $input.val(count)
+        $("#cost").html({{battlep |safe}} - totalbp)
+
+        $("#ppoints").append('<div class="shield"  style="max-width: 10%; display:none">')
+
+      }
+      if (troopname === "hp"){
+        totalbp -=  2500
+        if(totalbp < 0){
+          totalbp += 2500
+          return false;
+        }
+        $input.val(count)
+        $("#cost").html({{battlep |safe}} - totalbp)
+
+        $("#ppoints").append('<div class="hp"  style="max-width: 10%; display:none">')
+
+      }
+      if (troopname === "poison"){
+        totalbp -=  3000
+        if(totalbp < 0){
+          totalbp += 3000
+          return false;
+        }
+        $input.val(count)
+        $("#cost").html({{battlep |safe}} - totalbp)
+
+        $("#ppoints").append('<div class="poison"  style="max-width: 10%; display:none">')
+
+      }
+      if (troopname === "bonusfp"){
+        totalbp -=  3000
+        if(totalbp < 0){
+          totalbp += 3000
+          return false;
+        }
+        $input.val(count)
+        $("#cost").html({{battlep |safe}} - totalbp)
+
+        $("#ppoints").append('<div class="bonusfp"  style="max-width: 10%; display:none">')
+
+      }
+    }
+
+    $input.change();
+    return false;
+  });
+
+});
+
+// product +/-
+</script>
+{% endif %}
+  {% endblock %}

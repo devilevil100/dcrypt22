@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+  {% block body %}
+
+<div class="modal fade " data-backdrop="static" data-keyboard="false" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="display: block;padding: 0;">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content" style="
+ overflow-x: hidden;
+">
+
+       <div class="row no-gutters">
+
+         <div class="col-md-12 d-flex" id="registerform">
+           <div class="modal-body p-5 img d-flex align-items-center color-2">
+             <div class="text w-100 ">
+               <h3 class="mb-4" style="
+ color: white;
+ font-weight: 200;
+ text-align: center;
+ font-size: 2em;
+">Change Credentials</h3>
+{% if error != "no" %}
+<p style="color:red">{{error}} </p>
+{% endif %}
+               <form action="" method="post" id="signup-form" class="signup-form">
+                 {% csrf_token %}
+                 <div id="changeform">
+                 <div id="form1" class="nextform currentform">
+                 <div class="form-group mb-3">
+
+                   <input type="text" required class="form-control" name="teamname" placeholder=" Team Name" >
+                 </div>
+                 <div class="form-group mb-3">
+
+                   <input type="password" required class="form-control" name="password" placeholder="New Password" >
+                 </div>
+                   <button type="submit" class="btn btn-primary">Submit</button>
+               </div>
+               </div>
+               </form>
+
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <div class="container" style="padding-top: 2em; " id="dashboardd">
+   <h2 style="color:white; margin-bottom: 1em;"> {{name}} | {{team}} | <img src="{% static 'images/multiplier.svg' %}" style="max-width:1.25em; padding-bottom: 0.1em; margin-right: 0.25em"><span style="font-size: 0.5em; padding-bottom: 1em; margin-right: 0.25em">({{powerups.multi}})</span> <img src="{% static 'images/discount.svg' %}" style="max-width:1.25em; padding-bottom: 0.1em;">  <span style="font-size: 0.5em; padding-bottom: 1em;">({{powerups.hp}})</span>  <img src="{% static 'images/poison.svg' %}" style="max-width:1.25em; padding-bottom: 0.25em;"><span style="font-size: 0.5em; padding-bottom: 1em;"> ({{powerups.poison}})</span>  </h2>
+
+    <div class="row align-items-center ">
+      <div  class="col-lg-6 col-md-12 pointtable">
+          <div class="row align-items-center pointhed ">
+            <div class="col-6 ">
+              {% if poisoned == "yes" and bonus == "yes" %}
+              <h3> <span style="color:red" >Poisoned </span> Flag Points <span style="color:red" >++ </span> </h3>
+              {% elif poisoned == "no" and bonus == "yes" %}
+              <h3> Flag Points <span style="color:red" >++ </span> </h3>
+              {% elif poisoned == "yes" and bonus == "no" %}
+              <h3> <span style="color:red" >Poisoned </span> Flag Points</h3>
+              {% elif poisoned == "no" and bonus == "no" %}
+              <h3> Flag Points</h3>
+              {% endif %}
+
+              <h2> {{flagp}} </h2>
+            </div><div class="d-flex" style="height: 50px; background: white; width: 1px;">
+  <div class="vr"></div>
+</div>
+            <div class="col-5">
+              <h3> Battle Points </h3>
+              <h2> {{battlep}} </h2>
+            </div>
+
+          </div>
+
+
+      </div>
+      <div class="col-lg-5 col-md-12 pointtable">
+        <div class="row align-items-center pointhed ">
+          <div class="col-6 ">
+            <h3> Active Shield </h3>
+            {% if shield > 0 %}
+            <h2 id="shield"> <div class="timer" data-seconds-left={{shield}}></div> </h2>
+            {% else %}
+            <h2 id="shield"> None </h2>
+            {% endif %}
+          </div><div class="d-flex" style="height: 50px; background: white;">
+<div class="vr"></div>
+</div>
+          <div class="col-6">
+            <h3> Cooldown </h3>
+
+            {% if attack > 0 %}
+            <h2 id="attackcooldown"> <div class="timer" data-seconds-left={{attack}}></div> </h2>
+            {% else %}
+            <h2 id="attackcooldown"> None</h2>
+            {% endif %}
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="container">
+        <div class="row align-items-center ">
+          <div  class="col-lg-6 col-md-12 pointtable" id="baracks" style="    padding-right: 2.75em;">
+            <h2 style="color:white; margin-bottom: 0.4em"> Barracks - <span style="color: red;"> {{dp}} DP</span> </h2>
+              <div class="row align-items-center pointhed baracks" >
+                <div class="col-lg-3  col-md-6  ">
+                  <div class="troop">
+                  <h3> Soldiers </h3>
+                  <h2> {{troops.soldiers}} </h2>
+                <img src="{% static 'images/soldier.svg' %}"></div>
+                </div>
+                <div class="col-lg-3  col-md-6 ">
+                  <div class="troop">
+                  <h3> Bombers </h3>
+                  <h2> {{troops.bombers}} </h2>
+                <img src="{% static 'images/bomber.svg' %}"></div>
+                </div>
+                <div class="col-lg-3   col-md-6">
+                  <div class="troop">
+                  <h3> Tanks </h3>
+                  <h2> {{troops.tanks}} </h2>
+                <img src="{% static 'images/tank.svg' %}"></div>
+                </div>
+                <div class="col-lg-3  col-md-6">
+                  <div class="troop">
+                  <h3> A.A.G </h3>
+                  <h2> {{troops.aag}} </h2>
+                <img src="{% static 'images/aag.svg' %}"></div>
+                </div>
+              </div>
+
+
+          </div>
+          <div  class="col-lg-5 col-md-12 pointtable" id="notifs" >
+            <h2 style="color:white; text-align: center;"> Notifications </h2>
+
+            <div class="notifications">
+                {% for not in notifs %}
+            <div class="col-lg-12  col-md-12  notification">
+              <h3 style=" margin:0">{{not.context}}</h3>
+              <input type="hidden" name="multi" value="no">
+             </div>
+             {% endfor %}
+             </div>
+
+
+          </div>
+          </div>
+        </div>
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script>
+
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/chat/'
+            + '{{room | safe}}'
+            + '/'
+        );
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            console.log(data)
+            if(data.status){
+              if (data.status == "win"){
+                  createAlert('','Congo Master!',data.message,'success',true,true,'dashboardd', true);
+              }
+              else if (data.status == "lose"){
+                  createAlert('','Master!',data.message,'danger',true,true,'dashboardd', true);
+              }
+            }
+
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+    </script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="{% static 'js/jquery.timer.js' %}"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+      {% if 'team' in team %}
+      <script type="text/javascript">
+         $('#exampleModalCenter').modal('toggle');
+      </script>
+      {% else %}
+      <script type="text/javascript">
+         $('#exampleModalCenter').hide();
+      </script>
+      {% endif %}
+      <script type="text/javascript">
+      $("#notifs").height($("#baracks").height())
+      $('.timer').startTimer({
+    onComplete: function(element){
+    window.location.reload()
+    }
+  });
+      </script>
+  {% endblock %}

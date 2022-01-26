@@ -1,0 +1,15 @@
+from django.urls import path
+
+from . import views
+app_name = "dashboard"
+urlpatterns = [
+    path('login/', views.index, name='login'),
+    path('', views.dashboard, name='dashboard'),
+    path('logout/', views.logout, name='logout'),
+    path('leaderboard/', views.leaderboard, name="leaderboard"),
+    path('questions/', views.questions, name="questions"),
+    path('shop/', views.shop, name="shop"),
+    path('buytroops/', views.buytroops, name="buytroops"),
+    path('attack/', views.attack, name="attack"),
+    path('poison/', views.poison, name="poison")
+]

@@ -1,0 +1,303 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+<div class="modal fade " data-backdrop="static" data-keyboard="false" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="display: block;padding: 0;">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content" style="
+ overflow-x: hidden;
+">
+
+       <div class="row no-gutters">
+
+         <div class="col-md-12 d-flex" id="registerform">
+           <div class="modal-body p-5 img d-flex align-items-center color-2">
+             <div class="text w-100 ">
+               <h3 class="mb-4" style="
+ color: white;
+ font-weight: 200;
+ text-align: center;
+ font-size: 2em;
+">Change Credentials</h3>
+<p style="color:red">{{error}} </p>
+               <form action="" method="post" id="signup-form" class="signup-form">
+                 {% csrf_token %}
+                 <div id="changeform">
+                 <div id="form1" class="nextform currentform">
+                 <div class="form-group mb-3">
+
+                   <input type="text" required class="form-control" name="teamname" placeholder=" Team Name" >
+                 </div>
+                 <div class="form-group mb-3">
+
+                   <input type="password" required class="form-control" name="password" placeholder="New Password" >
+                 </div>
+                   <button type="submit" class="btn btn-primary">Submit</button>
+               </div>
+               </div>
+               </form>
+
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="modal fade"  id="attackmodal" tabindex="-1" role="dialog" aria-labelledby="attackmodal" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content" style="
+  overflow-x: hidden;
+ ">
+
+        <div class="row no-gutters">
+          <div class="col-md-12 d-flex" id="registerform">
+            <div class="modal-body p-5 img d-flex align-items-center color-2">
+              <div class="text w-100 ">
+                <h3 class="mb-4" id="attackingteam" style="
+  color: white;
+  font-weight: 200;
+  text-align: center;
+  font-size: 2em;
+ ">Attacking </h3>
+
+ <div class="row align-items-center pointhed baracks" >
+   <div class="col-lg-4  col-md-6  ">
+     <div class="attacktroop">
+       <h3> Soldiers </h3>
+       <img src="{% static 'images/soldier.svg' %}">
+       <div class="num-block skin-2">
+        <div class="num-in">
+          <span class="minus dis"></span>
+          <input type="text" name="soldiers" class="in-num" value="0" readonly="">
+          <span class="plus"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4  col-md-6  ">
+    <div class="attacktroop">
+      <h3> Bombers </h3>
+      <img src="{% static 'images/bomber.svg' %}">
+      <div class="num-block skin-2">
+       <div class="num-in">
+         <span class="minus dis"></span>
+         <input type="text" name="bombers" class="in-num" value="0" readonly="">
+         <span class="plus"></span>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="col-lg-4  col-md-6  ">
+   <div class="attacktroop">
+     <h3> Tanks </h3>
+     <img src="{% static 'images/tank.svg' %}">
+     <div class="num-block skin-2">
+      <div class="num-in">
+        <span class="minus dis"></span>
+        <input type="text" name="tanks" class="in-num" value="0" readonly="">
+        <span class="plus"></span>
+      </div>
+    </div>
+  </div>
+ </div>
+ {% if multiplier != "no" %}
+ <div class="attackingpowerup">
+ <div class="col-lg-12  col-md-12  powerup">
+   <h3 style="  position: relative;  top: 0;"> Multiplier <span style="font-weight: 200; ">- Increases attack stat by 1.5 (<span class="remainingmulti">{{multiplier}}</span>) </span> <span class="usemulti" style="float:right; color:red "> Use </span></h3>
+   <input type="hidden" name="multi" value="no">
+  </div>
+  </div>
+  {% endif %}
+ </div>
+<button  id="attack" class="btn attackbtn btn-primary" style="float:right;">Attack</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+     <div id="deployed" style="display:none;"></div>
+  </div>
+{% if attack == "no" %}
+<div class="container" style="padding-top: 2em; " id="leaderboard">
+  <h2 style="color:white; margin-bottom: 1em;"> Leaderboard </h2>
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Flag Points</th>
+        <th scope="col">Attack </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for point in points %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ point.user.teamname }}</td>
+        <td>{{ point.flagpoints }}</td>
+        <td></td>
+      </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+    </div>
+  {% elif attack == "yes" %}
+  <div class="container" style="padding-top: 2em; ">
+    <h2 style="color:white; margin-bottom: 1em;"> Leaderboard </h2>
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Flag Points</th>
+          <th scope="col">Attack </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for point in points %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ point.teamname }}</td>
+          <td>{{ point.flagp }}</td>
+          {% if point.attackpossible == "yes" %}
+          <td> <button onclick="openmodal('{{point.teamname}}')"data-toggle="modal" data-target="#attackmodal" class="btn attackbtn btn-primary">Attack </button> </td>
+          {% else %}
+          <td> </td>
+        {% endif %}
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+      </div>
+  {% endif %}
+
+      <script src="{% static 'js/jquery.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+  {% if team == "NA" %}
+  <script type="text/javascript">
+     $('#exampleModalCenter').modal('toggle');
+  </script>
+  {% else %}
+  <script type="text/javascript">
+     $('#exampleModalCenter').hide();
+  </script>
+  {% endif %}
+  {{status.status}}
+  {% if status %}
+  {% if status.status == "win" %}
+      <script type="text/javascript">
+        createAlert('','Nice Work!','Your attack was successful and you gained {{status.flagp | safe}} Flagpoints','success',true,true,'leaderboard');
+      </script>
+  {% elif status.status == "lose" %}
+  <script type="text/javascript">
+    createAlert('','Alas!','Your attack was unsuccessful and you lost {{status.flagp | safe}} Flagpoints','danger',true,true,'leaderboard');
+  </script>
+  {% endif %}
+    {% endif %}
+  <script type="text/javascript">
+  $("#notifs").height($("#baracks").height())
+  function openmodal(team){
+    $("#attackingteam").html("Attacking "+ team)
+  }
+  $(document).ready(function() {
+    $('.num-in span').click(function () {
+
+        var $input = $(this).parents('.num-block').find('input.in-num');
+        var troopname = $input.attr('name')
+
+      if($(this).hasClass('minus')) {
+        var count = parseFloat($input.val()) - 1;
+        count = count < 0 ? 0 : count;
+        if (count < 2) {
+          $(this).addClass('dis');
+        }
+        else {
+          $(this).removeClass('dis');
+        }
+        $input.val(count);
+        if (troopname === "soldiers"){
+          if($('.soldier').length > 0){
+
+
+
+          $('.soldier').last().remove()}
+        }
+        if (troopname === "bombers"){
+          if($('.bomber').length > 0){
+
+
+
+          $('.bomber').last().remove()}
+        }
+        if (troopname === "tanks"){
+          if($('.tank').length > 0){
+
+
+
+          $('.tank').last().remove()}
+        }
+
+      }
+      else {
+        var count = parseFloat($input.val()) + 1
+
+        if (count > 0) {
+          $(this).parents('.num-block').find(('.minus')).removeClass('dis');
+        }
+        if (troopname === "soldiers"){
+          if($('.soldier').length < {{troops.soldiers | safe }}){
+            $input.val(count)
+
+
+            $("#deployed").append('<img class="soldier" src="{% static 'images/soldier.svg' %}" style="max-width: 10%; display:none">')
+          }
+          else{
+            return false;
+          }
+
+
+        }
+        if (troopname === "bombers"){
+          if($('.bomber').length < {{troops.bombers | safe }}){
+            $input.val(count)
+
+
+            $("#deployed").append('<img class="bomber" src="{% static 'images/bomber.svg' %}" style="max-width: 10%; display:none">')
+          }
+          else{
+            return false;
+          }
+
+
+        }
+        if (troopname === "tanks"){
+          if($('.tank').length < {{troops.tanks | safe }}){
+            $input.val(count)
+
+
+            $("#deployed").append('<img class="tank" src="{% static 'images/tank.svg' %}" style="max-width: 10%; display:none">')
+          }
+          else{
+            return false;
+          }
+
+
+        }
+      }
+
+      $input.change();
+      return false;
+    });
+
+  });
+  </script>
+
+  {% endblock %}
