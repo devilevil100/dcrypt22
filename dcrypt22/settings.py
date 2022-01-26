@@ -89,7 +89,7 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql',
 
-        'NAME': ‘dqi8lav20gir9’,
+        'NAME': 'dqi8lav20gir9',
 
         'USER': 'sjnlngnlycgado',
 
