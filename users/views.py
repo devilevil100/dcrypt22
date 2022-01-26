@@ -450,7 +450,7 @@ def attack(request):
         lefttroops = round(( victimpoints.defensepoints - attackpoints)/100)
         victimtroops.soldiers = lefttroops
         victimtroops.save()
-        victimpoints.defensepoints = 100^lefttroops
+        victimpoints.defensepoints = 100*lefttroops
         victimpoints.save()
     usercool.attack = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(minutes=10)
     cool = Cooldown.objects.get(user=attackedteam)
