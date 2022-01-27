@@ -435,6 +435,10 @@ def attack(request):
     troops.bombers -= bombers
     troops.tanks -= tanks
     troops.save()
+    defensewalesoldiers = victimtroops.soldiers
+    defensewaletanks = victimtroops.tanks
+    defensewaleaag = victimtroops.aag
+    attacksepehledp = victimpoints.defensepoints
     print(attackpoints)
     if usercool.shield:
         usercool.shield = None
@@ -479,7 +483,7 @@ def attack(request):
     cool.save()
     room = Room.objects.get(user=attackedteam)
     if status == "win":
-        attacweb.send(f"{q.teamname} attacked {attackedteam.teamname} and gained {wonpoints} FP")
+        attacweb.send(f"{q.teamname} {attackpoints} AP - {soldiers} S| {tanks} T| {bombers} B  attacked {attackedteam.teamname} {attacksepehledp} DP - {defensewalesoldiers} S| {defensewaletanks} T| {defensewaleaag} A| and gained {wonpoints} FP")
         if attackedteam.p2discord:
             p2discord = attackedteam.p2discord
         else:
@@ -506,7 +510,7 @@ def attack(request):
             }
         )
     elif status == "lose":
-        attacweb.send(f"{q.teamname} attacked {attackedteam.teamname} and lost {lostpoints} FP")
+        attacweb.send(f"{q.teamname} {attackpoints} AP - {soldiers} S| {tanks} T| {bombers} B  attacked {attackedteam.teamname} {attacksepehledp} DP - {defensewalesoldiers} S| {defensewaletanks} T| {defensewaleaag} A| and lost {lostpoints} FP")
         if attackedteam.p2discord:
             p2discord = attackedteam.p2discord
         else:
