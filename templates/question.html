@@ -51,7 +51,7 @@
 <div class="container" style="padding-top: 2em; " id="questt">
   <h2 style="color:white; margin-bottom: 1em;" class="questhead"> Question - {{question.question.heading}}  </h2>
   <div class="quest">
-      <h2 style="color:white; margin-bottom: 1em;     text-align: center;" id="questioncontext">  {{question.question.context  }}  </h2>
+      <h2 style="color:white; margin-bottom: 1em;     text-align: center;" id="questioncontext">  {{question.question.context|linebreaks  }}  </h2>
        {% if incor == "yes" %}
        <h3 style="color:red; margin-bottom: 1em;     text-align: center;" id="response" >  Incorrect Answer  </h3>
         {% endif %}
