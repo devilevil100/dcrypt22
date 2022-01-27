@@ -42,7 +42,7 @@ def hourlyfp():
                     else:
                         bonusfp = "no"
                     if  bonusfp == "yes":
-                        p.flagpoints += 220
+                        p.flagpoints += 400
                     elif bonusfp == "no":
                         p.flagpoints += 200
                     p.save()
