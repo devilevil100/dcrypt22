@@ -422,7 +422,7 @@ def attack(request):
     victimtroops = Troops.objects.get(user=attackedteam)
     
     
-    attackpoints = 100*soldiers + 300*bombers + 500*tanks
+    attackpoints = 100*soldiers + 350*bombers + 500*tanks
     multiplier = request.POST.get('multi')
     if multiplier == "yes":
         attackpoints = attackpoints*1.5
