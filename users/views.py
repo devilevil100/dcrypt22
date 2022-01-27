@@ -493,6 +493,9 @@ def attack(request):
         room2 = Room.objects.get(user=q)
         newnotif = Notif(user=room2.user, room=room2, context=f"You won the attack on {attackedteam.teamname} and were awarded with {wonpoints} FP" )
         newnotif.save()
+    
+        notifattacked = Notif(user=room.user, room=room, context=f'Somebody attacked and you lost! {wonpoints} flagpoints were taken from you. ')
+        notifattacked.save()
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
             room.roomname,
@@ -517,6 +520,8 @@ def attack(request):
         room2 = Room.objects.get(user=q)
         newnotif = Notif(user=room2.user, room=room2, context=f"You lost the attack on {attackedteam.teamname} and lost {lostpoints} FP" )
         newnotif.save()
+        notifattacked = Notif(user=room.user, room=room, context=f'Somebody attacked and you won!  {lostpoints} flagpoints were awarded to you. ')
+        notifattacked.save()
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
             room.roomname,
@@ -559,6 +564,8 @@ def poison(request):
     room2 = Room.objects.get(user=q)
     newnotif = Notif(user=room2.user, room=room2, context=f"You used your poison on {teamname}" )
     newnotif.save()
+    notifattacked = Notif(user=room.user, room=room, context=f'Somebody attacked and you won!  {lostpoints} flagpoints were awarded to you. ')
+    notifattacked.save()
     async_to_sync(channel_layer.group_send)(
         room.roomname,
         {
