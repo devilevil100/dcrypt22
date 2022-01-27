@@ -598,8 +598,6 @@ def questions(request):
     quest = []
     name= request.session.get('name')[0]
     q = User.objects.get(p1name=name)
-    if name != "Admin":
-        return redirect('dashboard:dashboard')
     for qu in ques:
         check = CheckQues.objects.get(team=q, question=qu)
         quest.append({"ques": qu.heading, "solved": check.solved})
