@@ -42,8 +42,15 @@ def quest(request):
         return render(request,"question.html", {"room": room.roomname})
     if not current.question:
         return redirect("dashboard:questions")
-
-    return render(request,"question.html", {"question": current, "room": room.roomname})
+    incorr = "no"
+    if request.session.get('incorrect'):
+        incorr = "yes"
+        request.session.pop('incorrect')
+    hacc = "no"
+    if request.session.get('hack'):
+        hacc = "yes"
+        request.session.pop('hack')
+    return render(request,"question.html", {"question": current, "room": room.roomname, "incor":incorr, "hacc":hacc})
 
 @require_http_methods(["POST"])
 def answer(request):
@@ -59,10 +66,11 @@ def answer(request):
     special_char = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
     if special_char.search(ans):
         hacweb.send(f"{q.teamname} typed {ans} thus using special chars in {current.question.heading}")
-        return HttpResponse('hack')
+        request.session['hack'] = "yes"
+        return redirect("questions:quest")
     elif ans != current.question.answer:
-        
-        return HttpResponse('incorrect')
+        request.session['incorrect'] = "yes"
+        return redirect("questions:quest")
     else:
         check = CheckQues.objects.get(team=q, question=current.question)
         check.solved = True
