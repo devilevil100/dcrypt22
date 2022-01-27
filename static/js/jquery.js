@@ -88,7 +88,7 @@ function submit(){
           url: "answer/",
           data:{"ans": $("input[name='answer']").val(), csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()},
           success:function(resp){
-
+     console.log(resp)
     if(resp === "reload"){
       window.location.reload()
 
