@@ -36,7 +36,8 @@ def quest(request):
         questioncontext = request.POST.get('ques')
         question = Question.objects.get(heading=questioncontext)
         current = CurrentQues.objects.get(team=q)
-
+        if current.question:
+            return redirect("questions:quest")
         current.question = question
 
         current.save()
