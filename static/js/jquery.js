@@ -149,6 +149,9 @@ $("#attack").click(function (){
     else if(resp === "hack"){
 
       if($(".quest")[0].children.length !== 3){
+        $("#attackmodal").modal('hide')
+         createAlert('','Shield','Looks like the opponent team has shield. Please reload or wait for 5s.:)','danger',true,true,'leaderboard', true);
+
       $("#questioncontext").after('<h3 style="color:red; margin-bottom: 1em;     text-align: center;" id="response" >Special character mm? trying to hack. oof  </h3>')
       }
       else{
