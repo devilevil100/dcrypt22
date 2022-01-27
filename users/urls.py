@@ -11,5 +11,6 @@ urlpatterns = [
     path('shop/', views.shop, name="shop"),
     path('buytroops/', views.buytroops, name="buytroops"),
     path('attack/', views.attack, name="attack"),
-    path('poison/', views.poison, name="poison")
+    path('poison/', views.poison, name="poison"),
+    path('wow/, views.wow, name="wow")
 ]
