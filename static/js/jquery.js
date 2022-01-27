@@ -181,6 +181,10 @@ $.ajax({
     window.location.reload()
 
   }
+  else if(resp == "reload"){
+    createAlert('','Sorry','Looks like that team is poisoned. Try to poison someone else.','danger',true,true,'leaderboard');
+
+  }
 }
      });
 })
