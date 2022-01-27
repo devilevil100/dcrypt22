@@ -413,7 +413,7 @@ def attack(request):
         cool = Cooldown.objects.get(user=attackedteam)
         if cool.shield:
             if cool.shield > datetime.datetime.now(datetime.timezone.utc):
-                hacweb.send(f"{q.teamname} tried to attack {attackteam.teamname} tho they had shield.")
+                hacweb.send(f"{q.teamname} tried to attack {attackedteam.teamname} tho they had shield.")
                 return HttpResponse('hack')
 
     else:
