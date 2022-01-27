@@ -11,6 +11,7 @@ import threading
 import datetime
 import string
 import random
+from ratelimit.decorators import ratelimit
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 N = 7
@@ -76,6 +77,8 @@ for user in User.objects.all():
         f = Room(user=user, roomname=''.join(random.choices(string.ascii_uppercase +
                                      string.digits, k = N)))
         f.save()
+
+@ratelimit(key='ip', rate='5/m')
 def index(request):
     if request.session.has_key('team'):
         return redirect("dashboard:dashboard")
@@ -131,6 +134,7 @@ def index(request):
             return render(request,"login.html", {"error": "Email Or Password is incorrect "})
     return render(request,"login.html")
 
+@ratelimit(key='ip', rate='5/m')
 def dashboard(request):
     print(request.session.get('team'))
 
@@ -204,6 +208,7 @@ def dashboard(request):
     points.save()
     return render(request,"dashboard.html", {"name": ','.join(request.session.get('name')), "team": team, "flagp": points.flagpoints, "battlep": points.battlepoints, "defensep": points.defensepoints, "troops": troops, "shield": shieldduration, "attack":attackcooldown, "poisoned": poisoned, "bonus": bonusfp, "room": room.roomname, "notifs": Reverse(notifs), "error":error, "powerups": {"multi": powerups.multiplier, "hp": powerups.hp, "poison": powerups.poison},  "dp": points.defensepoints})
 
+@ratelimit(key='ip', rate='5/m')
 def leaderboard(request):
     if not request.session.get('name'):
         return redirect('dashboard:login')
@@ -270,6 +275,7 @@ def leaderboard(request):
         request.session.pop('status')
     return render(request,"leaderboard.html", {"points": dataset, "attack": attack, "troops": troops, "multiplier":multiplier, "poison":poison, "poisoned": poisoned, "room": room.roomname, "status": status   })
 
+@ratelimit(key='ip', rate='5/m')
 def shop(request):
     if not request.session.get('name'):
         return redirect('dashboard:login')
@@ -303,6 +309,7 @@ def shop(request):
     room = Room.objects.get(user=q)
     return render(request,"shop.html", {"points": points,"battlep": points.battlepoints, "shield":shield,  "hp":hp , "bonusfp": bonusfp, "boughtitems": boughtitems, "room": room.roomname})
 
+@ratelimit(key='ip', rate='5/m')
 @require_http_methods(["POST"])
 def buytroops(request):
     if not request.session.get('name'):
@@ -380,6 +387,7 @@ def buytroops(request):
     print(soldiers, bombers, tanks, aag)
     return HttpResponse('bought')
 
+@ratelimit(key='ip', rate='5/m')
 @require_http_methods(["POST"])
 def attack(request):
     if not request.session.get('name'):
@@ -537,6 +545,7 @@ def attack(request):
         )
     return HttpResponse(status)
 
+@ratelimit(key='ip', rate='5/m')
 @require_http_methods(["POST"])
 def poison(request):
     if not request.session.get('name'):
@@ -588,6 +597,8 @@ def poison(request):
         p3discord = "NA"
     notifyweb.send(f"{team.p1discord}, {p2discord}, {p3discord}, Master! You were poisoned and your hourly flag points are now stopped for 3 hours.")
     return HttpResponse('poisoned')
+
+@ratelimit(key='ip', rate='5/m')
 def questions(request):
     if not request.session.get('name'):
         return redirect('dashboard:login')
@@ -620,6 +631,7 @@ def questions(request):
 
     return render(request,"questions.html", {"questions": quest, "room": room.roomname})
 
+@ratelimit(key='ip', rate='5/m')
 def wow(request):
     return redirect("https://open.spotify.com/track/4dgeKnbKybBMEHlNTkoCpX")
 def logout(request):
