@@ -4,3 +4,4 @@ django-heroku
 channels
 gspread
 whitenoise
+discord
