@@ -74,7 +74,7 @@ def answer(request):
         check.endtime = datetime.datetime.now(datetime.timezone.utc)
         current.save()
         check.save()
-        totaltimetaken = ((check.endtime - check.starttime).seconds % 3600) // 60
+        totaltimetaken = ((check.endtime - check.starttime).seconds) // 60
         point = Points.objects.get(user=q)
         point.flagpoints += 1000
         if totaltimetaken == 0:
