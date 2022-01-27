@@ -39,9 +39,7 @@ class ChatConsumer(WebsocketConsumer):
     def chat_message(self, event):
         message = event['message']
         status = event['status']
-        room = Room.objects.get(roomname=self.room_name)
-        notif = Notif(user=room.user, room=room, context=message)
-        notif.save()
+        
         # Send message to WebSocket
         self.send(text_data=json.dumps({
         'status':status,
