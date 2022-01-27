@@ -575,7 +575,7 @@ def poison(request):
         p3discord = team.p3discord
     else:
         p3discord = "NA"
-    notifyweb.send(f"{q.p1discord}, {p2discord}, {p3discord}, Master! You were poisoned and your hourly flag points are now stopped for 3 hours.")
+    notifyweb.send(f"{team.p1discord}, {p2discord}, {p3discord}, Master! You were poisoned and your hourly flag points are now stopped for 3 hours.")
     return HttpResponse('poisoned')
 def questions(request):
     if not request.session.get('name'):
