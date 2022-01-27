@@ -58,7 +58,7 @@ def answer(request):
 
     special_char = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
     if special_char.search(ans):
-        hacweb.send(f"{q.teamname} used special chars in {current.question.heading}")
+        hacweb.send(f"{q.teamname} typed {ans} thus using special chars in {current.question.heading}")
         return HttpResponse('hack')
     elif ans != current.question.answer:
         
