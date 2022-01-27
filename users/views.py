@@ -622,7 +622,8 @@ def questions(request):
 
     return render(request,"questions.html", {"questions": quest, "room": room.roomname})
 
-
+def wow(request):
+    return redirect("https://open.spotify.com/track/4dgeKnbKybBMEHlNTkoCpX")
 def logout(request):
     request.session.flush()
     return redirect("dashboard:login")
