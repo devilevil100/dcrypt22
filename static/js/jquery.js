@@ -94,7 +94,12 @@ function submit(){
       $("#questioncontext").after('<h3 style="color:red; margin-bottom: 1em;     text-align: center;" id="response" >  Incorrect Answer  </h3>')
       }
       else{
-        $("#response").html("Incorrect Again")
+        if ($("#response").html() == "Incorrect Answer" ){
+          $("#response").html("Wrong again")
+        }
+        else{
+        $("#response").html("Incorrect Answer")
+        }
       }
 
     }
