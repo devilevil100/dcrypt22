@@ -20,7 +20,11 @@ class CheckQues(models.Model):
     solved = models.BooleanField(default=False)
     starttime = models.DateTimeField(null=True, blank=True)
     endtime = models.DateTimeField(null=True, blank=True)
-
+    def __str__(self):
+        return self.team.teamname
+    
 class CurrentQues(models.Model):
     team = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True, blank=True)
+    def __str__(self):
+        return self.team.teamname
