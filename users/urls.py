@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 app_name = "dashboard"
 urlpatterns = [
+    path('wow/', views.wow, name="wow"),
     path('login/', views.index, name='login'),
     path('', views.dashboard, name='dashboard'),
     path('logout/', views.logout, name='logout'),
@@ -12,5 +13,5 @@ urlpatterns = [
     path('buytroops/', views.buytroops, name="buytroops"),
     path('attack/', views.attack, name="attack"),
     path('poison/', views.poison, name="poison"),
-    path('wow/, views.wow, name="wow")
+    
 ]
