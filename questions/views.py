@@ -9,6 +9,12 @@ from questions.models import Question, CheckQues, CurrentQues
 from django.contrib.auth.hashers import make_password, check_password
 from django.views.decorators.http import require_http_methods
 import datetime
+import requests
+from discord import Webhook, RequestsWebhookAdapter
+
+hacweb = Webhook.from_url("https://discord.com/api/webhooks/936104524630859826/qtxMSv9v5namavQoOU9mrrHVt4r4UKpNzcRGTfH8JiU7hJNeMD53dbwMpTyV8aRStdJ9", adapter=RequestsWebhookAdapter())
+solveweb = Webhook.from_url("https://discord.com/api/webhooks/936104431710240778/k2cWCESgnPYD5trvW-NvRgGa39Qt5L47Pvv_bJs2fNW4ZJsXChuvoZOE8_5vRvg30tKi", adapter=RequestsWebhookAdapter())
+
 
 # Create your views here.
 def quest(request):
@@ -60,6 +66,9 @@ def answer(request):
         check = CheckQues.objects.get(team=q, question=current.question)
         check.solved = True
         check.save()
+        heading = current.question.heading
+       
+                   
         current.question = None
         check.endtime = datetime.datetime.now(datetime.timezone.utc)
         current.save()
@@ -72,7 +81,7 @@ def answer(request):
         point.battlepoints += 1000 + round(100000/totaltimetaken)
         point.recentupdate = datetime.datetime.now(datetime.timezone.utc)
         point.save()
-
+        solveweb.send(f"{q.teamname} has solved {heading} in {totaltimetaken} and got {1000 + round(100000/totaltimetaken)} BP")
         request.session['correct'] = {'time':totaltimetaken, 'bp': 1000 + round(100000/totaltimetaken) }
         return HttpResponse('correct')
     return HttpResponse('')
