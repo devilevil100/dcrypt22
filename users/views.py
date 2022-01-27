@@ -484,7 +484,7 @@ def attack(request):
         victimtroops.save()
         victimpoints.defensepoints = 100*lefttroops
         victimpoints.save()
-    usercool.attack = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(minutes=10)
+    usercool.attack = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=2,minutes=30)
     cool = Cooldown.objects.get(user=attackedteam)
     cool.shield = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=2)
     usercool.save()
