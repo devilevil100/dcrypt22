@@ -88,7 +88,7 @@ function submit(){
           url: "answer/",
           data:{"ans": $("input[name='answer']").val(), csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()},
           success:function(resp){
-            console.log(resp)
+
     if(resp === "incorrect"){
       if($(".quest")[0].children.length !== 3){
       $("#questioncontext").after('<h3 style="color:red; margin-bottom: 1em;     text-align: center;" id="response" >  Incorrect Answer  </h3>')
@@ -141,7 +141,7 @@ $("#attack").click(function (){
           "team": $("#attackingteam").html().split(" ")[1],
            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()},
           success:function(resp){
-            console.log(resp)
+
     if(resp === "win"){
       window.location.reload()
 
@@ -161,7 +161,7 @@ $("#attack").click(function (){
        });
 })
 $('.poison').click(function (){
-console.log(this.parentNode.parentNode.children[4].value)
+
 var teamname = this.parentNode.parentNode.children[4].value
 $.ajax({
         type: "POST",
@@ -170,7 +170,7 @@ $.ajax({
 
         csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()},
         success:function(resp){
-          console.log(resp)
+
   if(resp === "hack"){
 
 
@@ -189,7 +189,7 @@ $.ajax({
      });
 })
 function buytroops(){
-  console.log('g')
+ 
   $.ajax({
           type: "POST",
           url: "/buytroops/",
@@ -204,7 +204,7 @@ function buytroops(){
           'bonusfp': $("input[name='bonusfp']").val(),
           csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()},
           success:function(resp){
-            console.log(resp)
+
     if(resp === "hack"){
 
 
