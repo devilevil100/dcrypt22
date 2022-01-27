@@ -488,7 +488,7 @@ def attack(request):
             p3discord = attackedteam.p3discord
         else:
             p3discord = "NA"
-        notifyweb.send(f"{q.p1discord}, {p2discord}, {p3discord}, Master! You were attacked and you lost {wonpoints} FP")
+        notifyweb.send(f"{attackedteam.p1discord}, {p2discord}, {p3discord}, Master! You were attacked and you lost {wonpoints} FP")
         request.session['status'] = {"status":"win", "flagp":wonpoints }
         room2 = Room.objects.get(user=q)
         newnotif = Notif(user=room2.user, room=room2, context=f"You won the attack on {attackedteam.teamname} and were awarded with {wonpoints} FP" )
@@ -512,7 +512,7 @@ def attack(request):
             p3discord = attackedteam.p3discord
         else:
             p3discord = "NA"
-        notifyweb.send(f"{q.p1discord}, {p2discord}, {p3discord}, Master! You were attacked and you won {lostpoints} FP")
+        notifyweb.send(f"{attackedteam.p1discord}, {p2discord}, {p3discord}, Master! You were attacked and you won {lostpoints} FP")
         request.session['status'] = {"status":"lose", "flagp":lostpoints }
         room2 = Room.objects.get(user=q)
         newnotif = Notif(user=room2.user, room=room2, context=f"You lost the attack on {attackedteam.teamname} and lost {lostpoints} FP" )
