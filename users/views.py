@@ -441,7 +441,7 @@ def attack(request):
     if attackpoints > victimpoints.defensepoints:
         status = "win"
         points.flagpoints += round((victimpoints.flagpoints)/2)
-        points.defensepoints -= soldiers*100 + tank*350
+        points.defensepoints -= soldiers*100 + tanks*350
         wonpoints = round((victimpoints.flagpoints)/2)
         victimpoints.flagpoints -= round((victimpoints.flagpoints)/2)
         points.save()
@@ -459,7 +459,7 @@ def attack(request):
         victimpoints.flagpoints += round((points.flagpoints)/4)
         lostpoints = round((points.flagpoints)/4)
         points.flagpoints -= round((points.flagpoints)/4)
-        points.defensepoints -= soldiers*100 + tank*350
+        points.defensepoints -= soldiers*100 + tanks*350
         points.save()
         victimpoints.save()
         victimtroops.soldiers = 0
