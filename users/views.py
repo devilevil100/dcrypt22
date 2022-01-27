@@ -200,7 +200,8 @@ def dashboard(request):
     if request.session.get('error'):
         error = request.session.get('error')
     powerups = PowerUp.objects.get(user=q)
-
+    points.defensepoints = troops.soldiers*100 + troops.tanks*350 + troops.aag*300
+    points.save()
     return render(request,"dashboard.html", {"name": ','.join(request.session.get('name')), "team": team, "flagp": points.flagpoints, "battlep": points.battlepoints, "defensep": points.defensepoints, "troops": troops, "shield": shieldduration, "attack":attackcooldown, "poisoned": poisoned, "bonus": bonusfp, "room": room.roomname, "notifs": Reverse(notifs), "error":error, "powerups": {"multi": powerups.multiplier, "hp": powerups.hp, "poison": powerups.poison},  "dp": points.defensepoints})
 
 def leaderboard(request):
@@ -419,6 +420,8 @@ def attack(request):
         hacweb.send("{q.teamname} tried to attack null team.")
         return HttpResponse('hack')
     victimtroops = Troops.objects.get(user=attackedteam)
+    
+    
     attackpoints = 100*soldiers + 300*bombers + 500*tanks
     multiplier = request.POST.get('multi')
     if multiplier == "yes":
@@ -438,6 +441,7 @@ def attack(request):
     if attackpoints > victimpoints.defensepoints:
         status = "win"
         points.flagpoints += round((victimpoints.flagpoints)/2)
+        points.defensepoints -= soldiers*100 + tank*350
         wonpoints = round((victimpoints.flagpoints)/2)
         victimpoints.flagpoints -= round((victimpoints.flagpoints)/2)
         points.save()
@@ -455,6 +459,7 @@ def attack(request):
         victimpoints.flagpoints += round((points.flagpoints)/4)
         lostpoints = round((points.flagpoints)/4)
         points.flagpoints -= round((points.flagpoints)/4)
+        points.defensepoints -= soldiers*100 + tank*350
         points.save()
         victimpoints.save()
         victimtroops.soldiers = 0
