@@ -67,10 +67,10 @@ def answer(request):
     if special_char.search(ans):
         hacweb.send(f"{q.teamname} typed {ans} thus using special chars in {current.question.heading}")
         request.session['hack'] = "yes"
-        return redirect("questions:quest")
+        return HttpResponse('reload')
     elif ans != current.question.answer:
         request.session['incorrect'] = "yes"
-        return redirect("questions:quest")
+        return HttpResponse('reload')
     else:
         check = CheckQues.objects.get(team=q, question=current.question)
         check.solved = True
@@ -93,5 +93,5 @@ def answer(request):
         solveweb.send(f"{q.teamname} has solved {heading} in {totaltimetaken} mins and got {1000 + round(100000/totaltimetaken)} BP")
         request.session['correct'] = {'time':totaltimetaken, 'bp': 1000 + round(100000/totaltimetaken) }
         return HttpResponse('correct')
-    return HttpResponse('')
+    
 
