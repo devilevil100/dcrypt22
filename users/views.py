@@ -390,21 +390,21 @@ def attack(request):
     usercool = Cooldown.objects.get(user=q)
     if usercool.attack:
         if usercool.attack > datetime.datetime.now(datetime.timezone.utc):
-            hacweb.send("{q.teamname} tried to attack tho they have an attack cooldown.")
+            hacweb.send(f"{q.teamname} tried to attack tho they have an attack cooldown.")
             return HttpResponse('hack')
     soldiers = int(request.POST.get('soldiers'))
     tanks = int(request.POST.get('tanks'))
     bombers = int(request.POST.get('bombers'))
     team = request.POST.get('team')
     if soldiers < 0 or tanks < 0 or bombers <0 :
-        hacweb.send("{q.teamname} tried to send negative troops to attack.")
+        hacweb.send(f"{q.teamname} tried to send negative troops to attack.")
         return HttpResponse('hack')
     name= request.session.get('name')[0]
     q = User.objects.get(p1name=name)
     points = Points.objects.get(user=q)
     troops = Troops.objects.get(user=q)
     if soldiers > troops.soldiers or tanks > troops.tanks or bombers > troops.bombers:
-        hacweb.send("{q.teamname} tried to attack with troops greater than they have.")
+        hacweb.send(f"{q.teamname} tried to attack with troops greater than they have.")
         return HttpResponse('hack')
     attackedteam = User.objects.get(teamname=team)
 
@@ -412,7 +412,7 @@ def attack(request):
         cool = Cooldown.objects.get(user=attackedteam)
         if cool.shield:
             if cool.shield > datetime.datetime.now(datetime.timezone.utc):
-                hacweb.send("{q.teamname} tried to attack {attackteam.teamname} tho they had shield.")
+                hacweb.send(f"{q.teamname} tried to attack {attackteam.teamname} tho they had shield.")
                 return HttpResponse('hack')
 
     else:
