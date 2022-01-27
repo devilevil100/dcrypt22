@@ -89,18 +89,8 @@ function submit(){
           data:{"ans": $("input[name='answer']").val(), csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()},
           success:function(resp){
 
-    if(resp === "incorrect"){
-      if($(".quest")[0].children.length !== 3){
-      $("#questioncontext").after('<h3 style="color:red; margin-bottom: 1em;     text-align: center;" id="response" >  Incorrect Answer  </h3>')
-      }
-      else{
-        if ($("#response").html() == "Incorrect Answer" ){
-          $("#response").html("Wrong again")
-        }
-        else{
-        $("#response").html("Incorrect Answer")
-        }
-      }
+    if(resp === "reload"){
+      window.location.reload()
 
     }
     else if(resp === "hack"){
