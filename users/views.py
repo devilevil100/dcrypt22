@@ -548,12 +548,12 @@ def poison(request):
     teamname = request.POST.get('teamname')
     powerup = PowerUp.objects.get(user=q)
     if not User.objects.filter(p1name=teamname).exists():
-        hacweb.send("{q.teamname} tried to poison null team.")
+        hacweb.send(f"{q.teamname} tried to poison null team.")
         return HttpResponse("hack")
     team =  User.objects.get(p1name=teamname)
     if powerup.poison == 0:
-        hacweb.send("{q.teamname} tried to poison with no poison powerup")
-        return HttpResponse("hack")
+        hacweb.send(f"{q.teamname} tried to poison with no poison powerup")
+        return HttpResponse("reload")
     hfp = HourlyFp.objects.get(user=team)
     if hfp.poisoned:
         return HttpResponse('reload')
