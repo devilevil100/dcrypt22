@@ -19,8 +19,8 @@ from discord import Webhook, RequestsWebhookAdapter
 
 hacweb = Webhook.from_url("https://discord.com/api/webhooks/936104524630859826/qtxMSv9v5namavQoOU9mrrHVt4r4UKpNzcRGTfH8JiU7hJNeMD53dbwMpTyV8aRStdJ9", adapter=RequestsWebhookAdapter())
 solveweb = Webhook.from_url("https://discord.com/api/webhooks/936104431710240778/k2cWCESgnPYD5trvW-NvRgGa39Qt5L47Pvv_bJs2fNW4ZJsXChuvoZOE8_5vRvg30tKi", adapter=RequestsWebhookAdapter())
-
-
+attacweb = Webhook.from_url("https://discord.com/api/webhooks/936109964366319616/ex8cmYSpBJi5wtmxltNB-Z_m0hlovhArPyUutfXpnxWWWLuc3w9Nhj0v8zKnX5WkjTHw", adapter=RequestsWebhookAdapter())
+notifyweb = Webhook.from_url("https://discord.com/api/webhooks/936110900732125204/TN8g4Oq855W9FA3G4vqIIea2gcNPMzPTgbyFEh_DP3Pr6g7ExAaBW1no510-CSpMA6K1", adapter=RequestsWebhookAdapter())
 def hourlyfp():
     while True:
         hourlyfp = HourlyFp.objects.all()
@@ -319,6 +319,7 @@ def buytroops(request):
     bonusfp = int(request.POST.get('bonusfp'))
     special_char = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
     if soldiers < 0 or bombers < 0 or tanks < 0 or aag <0 or multiplier < 0 or shield < 0 or hp < 0 or poison < 0 or bonusfp <0 :
+        hacweb.send(f"{request.session.get('name')[0]} changed input value of troops or powerups in shop")
         return HttpResponse('hack')
     name= request.session.get('name')[0]
     q = User.objects.get(p1name=name)
@@ -327,10 +328,12 @@ def buytroops(request):
     powerup = PowerUp.objects.get(user=q)
     cool = Cooldown.objects.get(user=q)
     if shield >1:
+        hacweb.send(f"{q.teamname} tried to get shield tho they had a shield")
         return HttpResponse('hack')
     if shield > 0:
         if cool.shield:
             if cool.shield > datetime.datetime.now(datetime.timezone.utc):
+                hacweb.send(f"{q.teamname} tried to get shield tho they had a shield")
                 return HttpResponse('hack')
             else:
                 cool.shield = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=1)
@@ -339,6 +342,7 @@ def buytroops(request):
         cool.save()
     if powerup.hp > 0:
         totalcost = soldiers*50 + bombers*120 + tanks*200 + aag*125 + multiplier*2500 + shield*2500 + hp*2500 + poison*3000 + bonusfp*3000
+        
         powerup.hp = 0
         powerup.save()
         room2 = Room.objects.get(user=q)
@@ -347,6 +351,7 @@ def buytroops(request):
     else:
         totalcost = soldiers*100 + bombers*250 + tanks*400 + aag*250 + multiplier*2500 + shield*2500 + hp*2500 + poison*3000 + bonusfp*3000
     if totalcost > points.battlepoints:
+        hacweb.send(f"{q.teamname} changed cost of troops or powerups in shop. totalcost was {totalcost} BP and totalbp was {points.battlepoints} BP")
         return HttpResponse('hack')
     troops.soldiers += soldiers
     troops.bombers += bombers
@@ -360,6 +365,7 @@ def buytroops(request):
     hfp = HourlyFp.objects.get(user=q)
     if bonusfp >0:
         if hfp.bonusfp:
+            hacweb.send(f"{q.teamname} took bonusfp even tho they had ongoing bonusfp")
             return HttpResponse('hack')
         hfp.bonusfp = True
         hfp.bonustill = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=5)
@@ -384,18 +390,21 @@ def attack(request):
     usercool = Cooldown.objects.get(user=q)
     if usercool.attack:
         if usercool.attack > datetime.datetime.now(datetime.timezone.utc):
+            hacweb.send("{q.teamname} tried to attack tho they have an attack cooldown.")
             return HttpResponse('hack')
     soldiers = int(request.POST.get('soldiers'))
     tanks = int(request.POST.get('tanks'))
     bombers = int(request.POST.get('bombers'))
     team = request.POST.get('team')
     if soldiers < 0 or tanks < 0 or bombers <0 :
+        hacweb.send("{q.teamname} tried to send negative troops to attack.")
         return HttpResponse('hack')
     name= request.session.get('name')[0]
     q = User.objects.get(p1name=name)
     points = Points.objects.get(user=q)
     troops = Troops.objects.get(user=q)
     if soldiers > troops.soldiers or tanks > troops.tanks or bombers > troops.bombers:
+        hacweb.send("{q.teamname} tried to attack with troops greater than they have.")
         return HttpResponse('hack')
     attackedteam = User.objects.get(teamname=team)
 
@@ -403,9 +412,11 @@ def attack(request):
         cool = Cooldown.objects.get(user=attackedteam)
         if cool.shield:
             if cool.shield > datetime.datetime.now(datetime.timezone.utc):
+                hacweb.send("{q.teamname} tried to attack {attackteam.teamname} tho they had shield.")
                 return HttpResponse('hack')
 
     else:
+        hacweb.send("{q.teamname} tried to attack null team.")
         return HttpResponse('hack')
     victimtroops = Troops.objects.get(user=attackedteam)
     attackpoints = 100*soldiers + 300*bombers + 500*tanks
@@ -463,6 +474,16 @@ def attack(request):
     cool.save()
     room = Room.objects.get(user=attackedteam)
     if status == "win":
+        attacweb.send(f"{q.teamname} attacked {attackedteam.teamname} and gained {wonpoints} FP")
+        if attackedteam.p2discord:
+            p2discord = attackedteam.p2discord
+        else:
+            p2discord = "NA"
+        if attackedteam.p3discord:
+            p3discord = attackedteam.p3discord
+        else:
+            p3discord = "NA"
+        notifyweb.send(f"{q.p1discord}, {p2discord}, {p3discord}, Master! You were attacked and you won {wonpoints} FP")
         request.session['status'] = {"status":"win", "flagp":wonpoints }
         room2 = Room.objects.get(user=q)
         newnotif = Notif(user=room2.user, room=room2, context=f"You won the attack on {attackedteam.teamname} and were awarded with {wonpoints} FP" )
@@ -477,6 +498,16 @@ def attack(request):
             }
         )
     elif status == "lose":
+        attacweb.send(f"{q.teamname} attacked {attackedteam.teamname} and lost {lostpoints} FP")
+        if attackedteam.p2discord:
+            p2discord = attackedteam.p2discord
+        else:
+            p2discord = "NA"
+        if attackedteam.p3discord:
+            p3discord = attackedteam.p3discord
+        else:
+            p3discord = "NA"
+        notifyweb.send(f"{q.p1discord}, {p2discord}, {p3discord}, Master! You were attacked and you lost {lostpoints} FP")
         request.session['status'] = {"status":"lose", "flagp":lostpoints }
         room2 = Room.objects.get(user=q)
         newnotif = Notif(user=room2.user, room=room2, context=f"You lost the attack on {attackedteam.teamname} and lost {lostpoints} FP" )
@@ -503,10 +534,11 @@ def poison(request):
     teamname = request.POST.get('teamname')
     powerup = PowerUp.objects.get(user=q)
     if not User.objects.filter(p1name=teamname).exists():
-        print(teamname)
+        hacweb.send("{q.teamname} tried to poison null team.")
         return HttpResponse("hack")
     team =  User.objects.get(p1name=teamname)
     if powerup.poison == 0:
+        hacweb.send("{q.teamname} tried to poison with no poison powerup")
         return HttpResponse("hack")
     hfp = HourlyFp.objects.get(user=team)
     if hfp.poisoned:
@@ -530,6 +562,15 @@ def poison(request):
             'message': f'Somebody has poisoned you! Your hourly flag points are now stopped for 3 hours. '
         }
     )
+    if team.p2discord:
+            p2discord = team.p2discord
+        else:
+            p2discord = "NA"
+        if team.p3discord:
+            p3discord = team.p3discord
+        else:
+            p3discord = "NA"
+        notifyweb.send(f"{q.p1discord}, {p2discord}, {p3discord}, Master! You were poisoned and your hourly flag points are now stopped for 3 hours.")
     return HttpResponse('poisoned')
 def questions(request):
     if not request.session.get('name'):
