@@ -61,7 +61,7 @@ def answer(request):
 
         return HttpResponse('hack')
     elif ans != current.question.answer:
-        hacweb.send(f"{q.teamname} used special chars in {current.question.heading})
+        hacweb.send(f"{q.teamname} used special chars in {current.question.heading}")
         return HttpResponse('incorrect')
     else:
         check = CheckQues.objects.get(team=q, question=current.question)
