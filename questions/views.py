@@ -24,8 +24,6 @@ def quest(request):
         return redirect('dashboard:dashboard')
    
     name= request.session.get('name')[0]
-    if name != "Admin":
-        return redirect('dashboard:dashboard')
     q = User.objects.get(p1name=name)
     room = Room.objects.get(user=q)
 
