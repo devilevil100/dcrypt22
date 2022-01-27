@@ -14,7 +14,11 @@ import random
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 N = 7
+import requests
+from discord import Webhook, RequestsWebhookAdapter
 
+hacweb = Webhook.from_url("https://discord.com/api/webhooks/936104524630859826/qtxMSv9v5namavQoOU9mrrHVt4r4UKpNzcRGTfH8JiU7hJNeMD53dbwMpTyV8aRStdJ9", adapter=RequestsWebhookAdapter())
+solveweb = Webhook.from_url("https://discord.com/api/webhooks/936104431710240778/k2cWCESgnPYD5trvW-NvRgGa39Qt5L47Pvv_bJs2fNW4ZJsXChuvoZOE8_5vRvg30tKi", adapter=RequestsWebhookAdapter())
 
 
 def hourlyfp():
