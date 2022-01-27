@@ -568,7 +568,7 @@ def poison(request):
     room2 = Room.objects.get(user=q)
     newnotif = Notif(user=room2.user, room=room2, context=f"You used your poison on {team.teamname}" )
     newnotif.save()
-    notifattacked = Notif(user=room.user, room=room, context=f'Somebody attacked and you won!  {lostpoints} flagpoints were awarded to you. ')
+    notifattacked = Notif(user=room.user, room=room, context=f'Somebody has poisoned you! Your hourly flag points are now stopped for 3 hours. ')
     notifattacked.save()
     async_to_sync(channel_layer.group_send)(
         room.roomname,
