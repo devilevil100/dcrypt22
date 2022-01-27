@@ -13,10 +13,13 @@ class User(models.Model):
     teamname = models.CharField(max_length=200)
     p1name = models.CharField(max_length=200)
     p1email = models.CharField(max_length=200)
+    p1discord = models.BigIntegerField(blank=True, null=True)
     p2name = models.CharField(max_length=200)
     p2email = models.CharField(max_length=200)
+    p2discord = models.BigIntegerField(blank=True, null=True)
     p3name = models.CharField(max_length=200)
     p3email = models.CharField(max_length=200)
+    p3discord = models.BigIntegerField(blank=True, null=True)
     password = models.CharField(max_length=200)
     def __str__(self):
         return self.teamname
