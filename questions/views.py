@@ -61,6 +61,7 @@ def answer(request):
 
         return HttpResponse('hack')
     elif ans != current.question.answer:
+        hacweb.send(f"{q.teamname} used special chars in {current.question.heading})
         return HttpResponse('incorrect')
     else:
         check = CheckQues.objects.get(team=q, question=current.question)
@@ -81,7 +82,7 @@ def answer(request):
         point.battlepoints += 1000 + round(100000/totaltimetaken)
         point.recentupdate = datetime.datetime.now(datetime.timezone.utc)
         point.save()
-        solveweb.send(f"{q.teamname} has solved {heading} in {totaltimetaken} and got {1000 + round(100000/totaltimetaken)} BP")
+        solveweb.send(f"{q.teamname} has solved {heading} in {totaltimetaken} mins and got {1000 + round(100000/totaltimetaken)} BP")
         request.session['correct'] = {'time':totaltimetaken, 'bp': 1000 + round(100000/totaltimetaken) }
         return HttpResponse('correct')
     return HttpResponse('')
