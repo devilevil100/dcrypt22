@@ -563,14 +563,14 @@ def poison(request):
         }
     )
     if team.p2discord:
-            p2discord = team.p2discord
-        else:
-            p2discord = "NA"
-        if team.p3discord:
-            p3discord = team.p3discord
-        else:
-            p3discord = "NA"
-        notifyweb.send(f"{q.p1discord}, {p2discord}, {p3discord}, Master! You were poisoned and your hourly flag points are now stopped for 3 hours.")
+        p2discord = team.p2discord
+    else:
+        p2discord = "NA"
+    if team.p3discord:
+        p3discord = team.p3discord
+    else:
+        p3discord = "NA"
+    notifyweb.send(f"{q.p1discord}, {p2discord}, {p3discord}, Master! You were poisoned and your hourly flag points are now stopped for 3 hours.")
     return HttpResponse('poisoned')
 def questions(request):
     if not request.session.get('name'):
