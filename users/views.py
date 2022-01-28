@@ -10,7 +10,7 @@ from django.http import HttpResponse
 import threading
 import datetime
 import string
-from django.views.decorators.csrf import ensure_csrf_coo
+from django.views.decorators.csrf import ensure_csrf_cookie
 import random
 from ratelimit.decorators import ratelimit
 from channels.layers import get_channel_layer
