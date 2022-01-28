@@ -82,7 +82,7 @@ def answer(request):
         check = CheckQues.objects.get(team=q, question=current.question)
         check.solved = True
         check.save()
-        awardedbp = current.question.bp
+        
         heading = current.question.heading
        
                    
