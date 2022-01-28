@@ -6,7 +6,7 @@ class Question(models.Model):
     heading = models.CharField(max_length=250, default="f")
     context = models.TextField()
     answer = models.TextField()
- 
+    bp = models.IntegerField(default=0)
     def save(self, force_insert=False, force_update=False):
         is_new = self.id is None
         super(Question, self).save(force_insert, force_update)
