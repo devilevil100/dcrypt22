@@ -14,7 +14,7 @@ import random
 from ratelimit.decorators import ratelimit
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
-from django.views.decorators.csrf import csrf_exempt
+
 N = 7
 import requests
 from discord import Webhook, RequestsWebhookAdapter
@@ -78,7 +78,7 @@ for user in User.objects.all():
         f = Room(user=user, roomname=''.join(random.choices(string.ascii_uppercase +
                                      string.digits, k = N)))
         f.save()
-@csrf_exempt
+
 @ratelimit(key='ip', rate='5/m')
 def index(request):
     if request.session.has_key('team'):
@@ -134,7 +134,7 @@ def index(request):
         else:
             return render(request,"login.html", {"error": "Email Or Password is incorrect "})
     return render(request,"login.html")
-@csrf_exempt
+
 @ratelimit(key='ip', rate='5/m')
 def dashboard(request):
     print(request.session.get('team'))
@@ -208,7 +208,7 @@ def dashboard(request):
     points.defensepoints = troops.soldiers*100 + troops.tanks*350 + troops.aag*300
     points.save()
     return render(request,"dashboard.html", {"name": ','.join(request.session.get('name')), "team": team, "flagp": points.flagpoints, "battlep": points.battlepoints, "defensep": points.defensepoints, "troops": troops, "shield": shieldduration, "attack":attackcooldown, "poisoned": poisoned, "bonus": bonusfp, "room": room.roomname, "notifs": Reverse(notifs), "error":error, "powerups": {"multi": powerups.multiplier, "hp": powerups.hp, "poison": powerups.poison},  "dp": points.defensepoints})
-@csrf_exempt
+
 @ratelimit(key='ip', rate='5/m')
 def leaderboard(request):
     if not request.session.get('name'):
@@ -275,7 +275,7 @@ def leaderboard(request):
         status = request.session.get('status')
         request.session.pop('status')
     return render(request,"leaderboard.html", {"points": dataset, "attack": attack, "troops": troops, "multiplier":multiplier, "poison":poison, "poisoned": poisoned, "room": room.roomname, "status": status   })
-@csrf_exempt
+
 @ratelimit(key='ip', rate='5/m')
 def shop(request):
     if not request.session.get('name'):
@@ -309,7 +309,7 @@ def shop(request):
         request.session.pop('bought')
     room = Room.objects.get(user=q)
     return render(request,"shop.html", {"points": points,"battlep": points.battlepoints, "shield":shield,  "hp":hp , "bonusfp": bonusfp, "boughtitems": boughtitems, "room": room.roomname})
-@csrf_exempt
+
 @ratelimit(key='ip', rate='5/m')
 @require_http_methods(["POST"])
 def buytroops(request):
@@ -387,7 +387,7 @@ def buytroops(request):
     request.session["bought"] = totalcost
     print(soldiers, bombers, tanks, aag)
     return HttpResponse('bought')
-@csrf_exempt
+
 @ratelimit(key='ip', rate='5/m')
 @require_http_methods(["POST"])
 def attack(request):
@@ -545,7 +545,7 @@ def attack(request):
             }
         )
     return HttpResponse(status)
-@csrf_exempt
+
 @ratelimit(key='ip', rate='5/m')
 @require_http_methods(["POST"])
 def poison(request):
@@ -598,7 +598,7 @@ def poison(request):
         p3discord = "NA"
     notifyweb.send(f"{team.p1discord}, {p2discord}, {p3discord}, Master! You were poisoned and your hourly flag points are now stopped for 3 hours.")
     return HttpResponse('poisoned')
-@csrf_exempt
+
 @ratelimit(key='ip', rate='5/m')
 def questions(request):
     if not request.session.get('name'):
