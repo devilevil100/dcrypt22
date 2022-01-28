@@ -92,7 +92,13 @@ def answer(request):
         check.save()
         totaltimetaken = ((check.endtime - check.starttime).seconds) // 60
         point = Points.objects.get(user=q)
-        point.flagpoints += 1000
+        if heading == "Ques 6":
+            point.flagpoints += 500
+        elif heading == "Ques 1" or heading == "Ques 2" or heading == "Ques 5" or heading == "Ques 8" :
+            point.flagpoints += 750
+        elif heading == "Ques 3" or heading == "Ques 4" or heading == "Ques 7":
+            point.flagpoints += 1000
+
         if totaltimetaken == 0:
             totaltimetaken = 1
         point.battlepoints += awardedbp
