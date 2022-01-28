@@ -10,6 +10,7 @@ from django.http import HttpResponse
 import threading
 import datetime
 import string
+from django.views.decorators.csrf import ensure_csrf_coo
 import random
 from ratelimit.decorators import ratelimit
 from channels.layers import get_channel_layer
@@ -77,7 +78,7 @@ for user in User.objects.all():
         f = Room(user=user, roomname=''.join(random.choices(string.ascii_uppercase +
                                      string.digits, k = N)))
         f.save()
-
+@ensure_csrf_cookie
 @ratelimit(key='ip', rate='5/m')
 def index(request):
     if request.session.has_key('team'):
