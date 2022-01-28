@@ -9,6 +9,7 @@ from questions.models import Question, CheckQues, CurrentQues
 from django.contrib.auth.hashers import make_password, check_password
 from django.views.decorators.http import require_http_methods
 import datetime
+from django.views.decorators.csrf import csrf_exempt
 from ratelimit.decorators import ratelimit
 import requests
 from discord import Webhook, RequestsWebhookAdapter
@@ -18,7 +19,7 @@ solveweb = Webhook.from_url("https://discord.com/api/webhooks/936104431710240778
 
 
 # Create your views here.
-
+@csrf_exempt
 @ratelimit(key='ip', rate='5/m')
 def quest(request):
     if not request.session.get('name'):
@@ -57,7 +58,7 @@ def quest(request):
         request.session.pop('hack')
     return render(request,"question.html", {"question": current, "room": room.roomname, "incor":incorr, "hacc":hacc})
 
-
+@csrf_exempt
 @ratelimit(key='ip', rate='5/m')
 @require_http_methods(["POST"])
 def answer(request):
