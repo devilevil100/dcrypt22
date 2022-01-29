@@ -637,7 +637,7 @@ def wow(request):
     return redirect("https://open.spotify.com/track/4dgeKnbKybBMEHlNTkoCpX")
 
 @ratelimit(key='ip', rate='5/m')
-def ques11(request):
+def danbrown(request):
     return HttpResponse("nevee fiddle with the js code. Devilevil100/n9ts1vym/")
 
 def logout(request):
