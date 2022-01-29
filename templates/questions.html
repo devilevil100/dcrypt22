@@ -63,8 +63,11 @@
 
         {% elif ques.ques == "Ques 1" or ques.ques == "Ques 2" or ques.ques == "Ques 5" or ques.ques == "Ques 8" %}
             <h3 class="mb-4 questionhead" >750</h3>
-       {% elif ques.ques == "Ques 3" or ques.ques == "Ques 4" or ques.ques == "Ques 7" or ques.ques == "Ques 9" or ques.ques == "Ques 10" %}
+       {% elif ques.ques == "Ques 3" or ques.ques == "Ques 4" or ques.ques == "Ques 7" or ques.ques or ques.ques == "Ques 10" %}
             <h3 class="mb-4 questionhead" >1000</h3>
+        {% elif ques.ques == "Ques 9" %}
+            <h3 class="mb-4 questionhead" >1250</h3>
+        
   {% endif %}
         </div>
 
@@ -76,9 +79,12 @@
             <h3 class="mb-4 questionhead" >500</h3>
         {% elif ques.ques == "Ques 1" or ques.ques == "Ques 2" or ques.ques == "Ques 5" or ques.ques == "Ques 8" %}
             <h3 class="mb-4 questionhead" >750</h3>
-       {% elif ques.ques == "Ques 3" or ques.ques == "Ques 4" or ques.ques == "Ques 7" or ques.ques == "Ques 9" or ques.ques == "Ques 10" %}
+       {% elif ques.ques == "Ques 3" or ques.ques == "Ques 4" or ques.ques == "Ques 7" or ques.ques == "Ques 10" %}
             <h3 class="mb-4 questionhead" >1000</h3>
-  {% endif %}
+  {% elif ques.ques == "Ques 9" %}
+            <h3 class="mb-4 questionhead" >1250</h3>
+        
+{% endif %}
           </div>
 
         {% endif %}
