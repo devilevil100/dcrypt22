@@ -98,13 +98,13 @@ def answer(request):
         elif heading == "Ques 9":
             gainedp = 1250
             point.battlepoints += 1250
-        elif heading == "Ques 1" or heading == "Ques 2" or heading == "Ques 5" or heading == "Ques 8" :
+        elif heading == "Ques 1" or heading == "Ques 2" or heading == "Ques 5" or heading == "Ques 8" or heading == "Ques 11":
             gainedp = 750
             point.battlepoints += 750
         elif heading == "Ques 3" or heading == "Ques 4" or heading == "Ques 7" or heading == "Ques 10":
             gainedp = 1000
             point.battlepoints += 1000
-
+        
         if totaltimetaken < 60:
             totaltimetaken = 1
         point.flagpoints += 1000
