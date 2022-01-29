@@ -638,7 +638,7 @@ def wow(request):
 
 @ratelimit(key='ip', rate='5/m')
 def danbrown(request):
-    return HttpResponse("nevee fiddle with the js code. Devilevil100/n9ts1vym/")
+    return HttpResponse("never fiddle with the js code. Devilevil100/n9ts1vym/")
 
 def logout(request):
     request.session.flush()
