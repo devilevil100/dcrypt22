@@ -94,17 +94,17 @@ def answer(request):
         point = Points.objects.get(user=q)
         if heading == "Ques 6":
             gainedp = 500
-            point.flagpoints += 500
+            point.battlepoints += 500
         elif heading == "Ques 1" or heading == "Ques 2" or heading == "Ques 5" or heading == "Ques 8" :
             gainedp = 750
-            point.flagpoints += 750
+            point.battlepoints += 750
         elif heading == "Ques 3" or heading == "Ques 4" or heading == "Ques 7":
             gainedp = 1000
-            point.flagpoints += 1000
+            point.battlepoints += 1000
 
         if totaltimetaken < 60:
             totaltimetaken = 1
-        
+        point.flagpoints += 1000
         point.recentupdate = datetime.datetime.now(datetime.timezone.utc)
         point.save()
         solveweb.send(f"{q.teamname} has solved {heading} got {gainedp} BP in {totaltimetaken} mins")
