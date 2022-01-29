@@ -102,7 +102,7 @@ def answer(request):
             gainedp = 1000
             point.flagpoints += 1000
 
-        if totaltimetaken == 0:
+        if totaltimetaken < 60:
             totaltimetaken = 1
         
         point.recentupdate = datetime.datetime.now(datetime.timezone.utc)
