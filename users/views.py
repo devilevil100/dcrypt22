@@ -635,6 +635,11 @@ def questions(request):
 @ratelimit(key='ip', rate='5/m')
 def wow(request):
     return redirect("https://open.spotify.com/track/4dgeKnbKybBMEHlNTkoCpX")
+
+@ratelimit(key='ip', rate='5/m')
+def ques11(request):
+    return HttpResponse("nevee fiddle with the js code")
+
 def logout(request):
     request.session.flush()
     return redirect("dashboard:login")
