@@ -101,7 +101,7 @@ def answer(request):
         elif heading == "Ques 1" or heading == "Ques 2" or heading == "Ques 5" or heading == "Ques 8" :
             gainedp = 750
             point.battlepoints += 750
-        elif heading == "Ques 3" or heading == "Ques 4" or heading == "Ques 7":
+        elif heading == "Ques 3" or heading == "Ques 4" or heading == "Ques 7" or heading == "Ques 10":
             gainedp = 1000
             point.battlepoints += 1000
 
