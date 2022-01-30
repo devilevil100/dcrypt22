@@ -109,7 +109,7 @@ def answer(request):
             totaltimetaken = 1
         point.flagpoints += 1000
         point.recentupdate = datetime.datetime.now(datetime.timezone.utc)
-        point.save()
+        
         solveweb.send(f"{q.teamname} has solved {heading} got {gainedp} BP in {totaltimetaken} mins")
         request.session['correct'] = {'time':totaltimetaken, 'bp': gainedp  }
         return HttpResponse('correct')
