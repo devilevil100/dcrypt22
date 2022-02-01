@@ -640,6 +640,10 @@ def wow(request):
 def danbrown(request):
     return HttpResponse("never fiddle with the js code. Devilevil100/n9ts1vym/")
 
+@ratelimit(key='ip', rate='5/m')
+def walkthroughs(request):
+    return redirect("https://ncrypt22.notion.site/ncrypt22/dCrypt-Walkthroughs-d09082b823864cddba9c56be94250849")
+
 def logout(request):
     request.session.flush()
     return redirect("dashboard:login")
