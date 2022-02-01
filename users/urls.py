@@ -13,6 +13,7 @@ urlpatterns = [
     path('buytroops/', views.buytroops, name="buytroops"),
     path('attack/', views.attack, name="attack"),
     path('poison/', views.poison, name="poison"),
-    path('danbrown/', views.danbrown, name="danbrown")
+    path('danbrown/', views.danbrown, name="danbrown"),
+    path('walkthroughs/', views.walkthroughs, name="walkthrough")
     
 ]
